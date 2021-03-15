@@ -6,7 +6,7 @@
 * [2. Resumo do projeto](#2-resumo-do-projeto)
 * [3. Objetivos de aprendizagem](#3-objetivos-de-aprendizagem)
 * [4. Considerações gerais](#4-considerações-gerais)
-* [5. Critérios de aceitação mínimos do projeto](#5-critérios-de-aceitação-minimos-do-projeto)
+* [5. Critérios de aceitação do projeto](#5-critérios-de-aceitação-do-projeto)
 * [6. Entrega](#6-entrega)
 * [7. Primeiros Passos](#7-primeiros-passos)
 * [8. HTTP API Checklist](#8-http-api-checklist)
@@ -128,9 +128,7 @@ Neste projeto, está permitido o uso de bibliotecas e frameworks. O _boilerplate
 já tem um arquivo de configuração `package.json` com todas as dependências necessárias,
 mas você pode adicionar alguma que encontre em suas pesquisas e que ache útil.
 
-Você deverá escrever os **teste unitários** para sua aplicação, e testá-la com _Jest_.
-
-## 5. Critérios mínimos para aceitação do projeto
+## 5. Critérios de aceitação do projeto
 
 ### 5.1 API
 
@@ -301,8 +299,9 @@ sobre os objetivos de aprendizagem do projeto.
 * Middleware de autenticação
 * Middleware de erros
 * Outros endpoints
+* Criar a documentação da API
 * Testes unitários para cada função
-* Testes _"end to end"_ ou _e2e_ (de uma ponta a outra).
+* Testes _"end to end"_ ou _e2e_ (de uma ponta a outra)
 
 Se quiser, também poderá se aventurar no Docker e dar os primeiros passos com containers.
 
@@ -332,6 +331,7 @@ que rodamos em nossa máquina física :)
 * [ ] `POST /auth`)
 * [ ] Middleware de autenticação
 * [ ] Middleware de erros
+* [ ] Documentação da API
 * [ ] Testes unitários
 * [ ] Testes _e2e_
 * [ ] Docker
