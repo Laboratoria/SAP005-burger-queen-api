@@ -13,7 +13,14 @@ const getProductsId = (req, res) => {
 };
 
 const postProducts = (req, res) => {
-  res.send('Request post products');
+  const product = {
+    name: req.body.name,
+    price: req.body.price,
+  };
+  res.status(201).send({
+    message: 'produto inserido',
+    creatProduct: product,
+  });
 };
 
 const putProducts = (req, res) => {
