@@ -1,9 +1,31 @@
-const { Router } = require('express')
-const ExampleController = require('../controller/ExampleController')
+/* eslint-disable linebreak-style */
+const { Router } = require('express');
+const User = require('../controller/User');
+const Products = require('../controller/Products');
+const Orders = require('../controller/Orders');
 
-const router = Router()
+const router = Router();
 
-// aqui vai as requisições
-router.get("/", ExampleController.getAllExamples)
+// aqui vai as requisições || endpoints
+// users
+router.get('/users', User.getUsers);
+router.get('/users/:uid', User.getUsersUid);
+router.post('/users', User.posttUsers);
+router.put('/users/:uid', User.putUsers);
+router.delete('/users/:uid', User.deleteUsers);
 
-module.exports = router
+// products
+router.get('/products', Products.getProducts);
+router.get('/products/:productid', Products.getProductsId);
+router.post('/products', Products.postProducts);
+router.put('/products/:productid', Products.putProducts);
+router.delete('/products/:productid', Products.deleteProducts);
+
+// orders
+router.get('/orders', Orders.getOrders);
+router.get('/orders/:orderId', Orders.getOrdersId);
+router.post('/orders', Orders.postOrders);
+router.put('/orders/:orderId', Orders.putOrders);
+router.delete('/orders/:orderId', Orders.deleteOrders);
+
+module.exports = router;
