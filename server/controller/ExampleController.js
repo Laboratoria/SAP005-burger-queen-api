@@ -2,7 +2,10 @@
 
 const getAllExamples = (req, res) => {
   console.log("você também pode utilizar o console para visualizar =)")
-  res.send("Request feita")
+  res.send({Resposta: "Request feita"})
 }
-
-module.exports = { getAllExamples }
+const getUser = (req, res) => {
+  console.log("User deu certo")
+  res.send({Resposta: "Request User feita"})
+}
+module.exports = { getAllExamples, getUser }

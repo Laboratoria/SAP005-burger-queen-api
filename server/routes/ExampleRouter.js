@@ -5,5 +5,7 @@ const router = Router()
 
 // aqui vai as requisições
 router.get("/", ExampleController.getAllExamples)
+router.get("/user", ExampleController.getUser)
+
 
 module.exports = router
