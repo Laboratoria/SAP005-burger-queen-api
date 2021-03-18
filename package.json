@@ -7,11 +7,8 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Laboratoria/SAP005-burger-queen-api.git"
-  },
-  "author": "",
+  "repository": "git+https://github.com/Laboratoria/SAP005-burger-queen-api.git",
+  "author": "Luciana Pereira",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Laboratoria/SAP005-burger-queen-api/issues"
