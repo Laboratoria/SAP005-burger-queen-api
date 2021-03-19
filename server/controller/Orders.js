@@ -13,6 +13,13 @@ const getOrdersId = (req, res) => {
 };
 
 const postOrders = (req, res) => {
+  const order = {
+    id: req.body.id,
+    client_name: req.body.client_name,
+    user_id: req.body.user_id,
+    table: req.body.table,
+    status: req.body.status,
+  };
   res.send('Request post orders');
 };
 
