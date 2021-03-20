@@ -26,10 +26,10 @@
     }
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "pzdqethjcfmzpz",
+    "password": "60504b1462ad312e59fd4280e98a10ba21fb9f13dd49c679a4bd20ad29388478",
+    "database": "dcgtlo7479fvj6",
+    "host": "ec2-52-71-161-140.compute-1.amazonaws.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
