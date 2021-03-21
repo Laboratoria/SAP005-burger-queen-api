@@ -18,7 +18,7 @@ if (config.use_env_variable) {
 }
 
 // teste de conexão;
-// async function teste() {
+// async function testedeConexao() {
 //   try {
 //     await sequelize.authenticate();
 //     console.log('Connection has been established successfully.');
