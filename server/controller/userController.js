@@ -20,49 +20,45 @@ const bancoDadosUser = [
   }
 ]
 
-const bancoDadosProduto = [
-  {
-    "id":1,
-    "name": "Hamburger Simples",
-    "flavor": "carne",
-    "complement": "queijo",
-  },
-  {
-    "id":2,
-    "name": "Hamburger Simples",
-    "flavor": "frango",
-    "complement": "queijo",
-  },
-  {
-    "id":3,
-    "name": "Hamburger Simples",
-    "flavor": "vegetariano",
-    "complement": "queijo",
-  }
-]
-//buscar dados
 
+//Pegar todos os usuários ---------------------- ok
 const getAllUsers = (req, res) => {
   res.send(bancoDadosUser)
   
 }
 console.log(bancoDadosUser)
 
-// const getUserId = (req, res) => {
-//   console.log("Id Ok")
-//   res.send(bancoDadosUser)
-// }
+//Pegar usuário por ID -------------------ok
+const getUserId = (req, res)=> {
+  let id = Number(req.params.id)
+  const arrayFiltered = bancoDadosUser.filter(data => data.id === id)
+  res.status(200).send(arrayFiltered)
+}
 
-//inserir dados
+//Criar Usuário ---------------------- ok
 const postUser = (req, res) => {
   const body = req.body;
   console.log(body);
   if(!body){
     return res.status(400).end();
-  } else{
+  } else { 
     bancoDadosUser.push(body);
     return res.status(201).send(body);
   }
 }
+//Alterar usuário
+const updateUser = (req, res) => {
+  console.log("alterar user ok")
+  res.send("alterar user ok")
+}
 
-module.exports = { getAllUsers, postUser}
+//Deletar usuário ---------------------- ok
+const deleteUsers = (req, res) => {
+  let id = Number(req.params.id)
+  const arrayFiltered1 = bancoDadosUser.filter(data => data.id != id)
+  console.log(arrayFiltered1)
+  res.status(200).send(arrayFiltered1)
+}
+
+
+module.exports = { getAllUsers, postUser, deleteUsers, getUserId, updateUser}
