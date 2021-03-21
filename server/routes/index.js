@@ -1,8 +1,10 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable consistent-return *//* eslint-disable linebreak-style */
 const { Router } = require('express');
+const cors = require('cors');
 const Routers = require('./Router');
 
 const router = Router();
+router.use(cors());
 router.use(require('body-parser').urlencoded({ extended: false })); // Somente para dados simples. corpo da entrada da requisição.
 router.use(require('body-parser').json());
 // So aceita formato json, esta forma e para ler o json usando express
