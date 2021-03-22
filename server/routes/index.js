@@ -1,26 +1,12 @@
+const express = require('express');
 const { Router } = require('express');
-const controller = require('../controller');
+
+const app = express();
+const users = require('./users');
 
 const router = Router();
 
-router.get('/', controller.getAllExamples);
-
-router
-  .get('/users', (req, res) => {
-    res.send('Pega dados de todos os usuários.');
-  })
-  .post('/users', (req, res) => {
-    res.send('Cria um novo usuário.');
-  })
-  .get('/users/:userId', (req, res) => {
-    res.send(`Pega dados do usuário ${req.params.userId}.`);
-  })
-  .put('/users/:userId', (req, res) => {
-    res.send(`Atualiza usuário ${req.params.userId}.`);
-  })
-  .delete('/users/:userId', (req, res) => {
-    res.send(`Deleta usuário ${req.params.userId}.`);
-  });
+app.use('/users', users);
 
 router
   .get('/products', (req, res) => {
@@ -56,4 +42,4 @@ router
     res.send(`Deleta pedido ${req.params.orderId}.`);
   });
 
-module.exports = router;
+module.exports = app;
