@@ -6,6 +6,10 @@ const port = 3000;
 
 app.use(routes);
 
-app.listen(port, () => {
+app.listen(port, (error) => {
+  if (error) {
+    console.log(`There was a problem: ${error}`);
+    return;
+  }
   console.log(`Example app listening at http://localhost:${port}`);
 });

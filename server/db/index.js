@@ -1,6 +1,12 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 
+// const { Sequelize } = require('sequelize');
+
+// const sequelize = new Sequelize('postgres://uocmdrzkrplcld:3499b24d305610ece875bdd3f5dc404d54c85f42727dd2e7c9439fcce2819662@ec2-18-204-101-137.compute-1.amazonaws.com:5432/da89ph2i3os5jf');
+
+// module.exports = sequelize;
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -19,7 +25,8 @@ if (config.use_env_variable) {
 
 fs
   .readdirSync(__dirname)
-  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+  .filter((file) => (file.indexOf('.') !== 0)
+&& (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
