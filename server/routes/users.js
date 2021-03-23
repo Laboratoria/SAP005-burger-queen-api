@@ -1,12 +1,11 @@
 const express = require('express');
+const controller = require('../controller/users');
 
 const router = express.Router();
 
 router
   .route('/')
-  .get((req, res) => {
-    res.send('Pega dados de todos os usuários.');
-  })
+  .get(controller.findUser)
   .post((req, res) => {
     res.send('Cria um novo usuário.');
   });
