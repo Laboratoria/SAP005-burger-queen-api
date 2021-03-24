@@ -4,8 +4,8 @@ const router = Router()
 
 router.get('/', OrdersController.getAllOrders);
 // router.get('/:uid', OrdersController.getOrderById);
-// router.post('/', OrdersController.postOrders);
-// router.put('/:uid', OrdersController.putOrders);
-// router.delete('/:uid', OrdersController.deleteOrders);
+// router.post('/', OrdersController.createOrder);
+// router.put('/:uid', OrdersController.updateOrder);
+// router.delete('/:uid', OrdersController.deleteOrder);
 
 module.exports = router
