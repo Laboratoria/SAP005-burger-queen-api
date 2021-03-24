@@ -17,7 +17,7 @@ const users = [
     email: 'cfig@ppl.com' }
 ];
 
-app.get('/users', (req, res) => {
+app.get('/', (req, res) => {
   res.send(users)
 })
 
