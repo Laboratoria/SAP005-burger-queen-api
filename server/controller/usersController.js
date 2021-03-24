@@ -1,30 +1,29 @@
 // aqui vai o código que acessa o banco de dados
+const get = (req, res) => {
+  console.log("você também pode utilizar o console para visualizar =)");
+  res.send("Request Get");
+};
 
-// const getAllExamples = (req, res) => {
-//   console.log("você também pode utilizar o console para visualizar =)")
-//   res.send("Request feita")
-// }
+const getId = (req, res) => {
+  console.log("você também pode utilizar o console para visualizar =)");
+  res.send("Request GetId");
+};
 
-// module.exports = { getAllExamples }
-let users = require('./users.json')
+const post = (req, res) => {
+  console.log("você também pode utilizar o console para visualizar =)");
+  res.send("Request Post");
+};
 
-const getAllUsers = (req, res) => {
-  console.log("você também pode utilizar o console para visualizar =)")
-  res.send(users)
-}
+const putId = (req, res) => {
+  console.log("você também pode utilizar o console para visualizar =)");
+  res.send("Request Put");
+};
 
-const getUserById = (req, res) => {
-  let id = users.usuarios.filter(function(val){
-    console.log(val.uid, req.params.uid)
-    return val.uid === Number(req.params.uid);
-  });
-  res.send(id);
-}
-
-
+const deleteId = (req, res) => {
+  console.log("você também pode utilizar o console para visualizar =)");
+  res.send("Request Delete");
+};
 
 module.exports = {
-  getAllUsers,
-  getUserById,
-  createNewUser
-}
+  get, getId, putId, post, deleteId,
+};
