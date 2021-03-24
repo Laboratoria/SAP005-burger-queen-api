@@ -1,7 +1,9 @@
 // aqui vai o código que acessa o banco de dados
 
 const { restart } = require("nodemon")
+const { Association } = require("sequelize/types")
 
+const dataBase = require("../db/models")
 const bancoDadosUser = [
   {
     "id":1,
@@ -22,42 +24,51 @@ const bancoDadosUser = [
 
 
 //Pegar todos os usuários ---------------------- ok
-const getAllUsers = (req, res) => {
-  res.send(bancoDadosUser)
-  
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await dataBase.Users.findAll();
+    return res.status(200).json(allUsers);
+  } catch (err) {
+    return res.status(400).json({ error : err.message })
+  }
 }
 console.log(bancoDadosUser)
 
-//Pegar usuário por ID -------------------ok
-const getUserId = (req, res)=> {
-  let id = Number(req.params.id)
-  const arrayFiltered = bancoDadosUser.filter(data => data.id === id)
-  res.status(200).send(arrayFiltered)
-}
-
 //Criar Usuário ---------------------- ok
-const postUser = (req, res) => {
-  const body = req.body;
-  console.log(body);
-  if(!body){
-    return res.status(400).end();
-  } else { 
-    bancoDadosUser.push(body);
-    return res.status(201).send(body);
+const postUser = async (req, res) => {
+  const newUser = req.body;
+  try {
+    const createdUser = await dataBase.Users.create(newUser);
+    return res.status(201).json(createdUser)
+  } catch (err) {
+    return res.status(400).json({ error: err.message })
   }
 }
-//Alterar usuário
-const updateUser = (req, res) => {
-  console.log("alterar user ok")
-  res.send("alterar user ok")
+//Pegar usuário por ID
+const getUserId = (req, res) => {
+  const id = Number(req.params.id);
+  const data = bancoDadosUser.filter(item => item.id === id)
+  console.log("get id ok")
+  res.status(200).send(data)
 }
 
-//Deletar usuário ---------------------- ok
-const deleteUsers = (req, res) => {
-  let id = Number(req.params.id)
-  const arrayFiltered1 = bancoDadosUser.filter(data => data.id != id)
-  console.log(arrayFiltered1)
-  res.status(200).send(arrayFiltered1)
+
+//Alterar usuário
+const updateUser = (req, res) => {
+  console.log("você também pode utilizar o console para visualizar =)")
+  res.send("Request Update UserId")
+}
+
+//Deletar usuário ---------------------- atual
+const deleteUsers = (req, id) => {
+  var result = bancoDadosUser.filter(function(el) {
+    return el.id == id;
+  });
+    
+  for(var elemento of result){
+    var index = bancoDadosUser.indexOf(elemento);    
+    bancoDadosUser.splice(index, 1);
+  }
 }
 
 

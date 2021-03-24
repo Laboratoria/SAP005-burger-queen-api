@@ -4,7 +4,14 @@ const bancoDadosOrder = [{
     "name": "Hamburger Simples",
     "flavor": "carne",
     "complement": "queijo",
-}];
+  },
+  {
+  "id":2,
+  "name": "Hamburger Simples",
+  "flavor": "frango",
+  "complement": "queijo",
+  },
+];
 
 
 //Pegar todos os usuários ---------------------- ok
