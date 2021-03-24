@@ -1,26 +1,26 @@
 const get = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Get");
+    res.send("Request Get Orders");
 };
 
 const getId = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request GetId");
+    res.send("Request GetId Orders");
 };
 
 const post = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Post");
+    res.send("Request Post Orders");
 };
 
 const putId = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Put");
+    res.send("Request Put Orders");
 };
 
 const deleteId = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Delete");
+    res.send("Request Delete Orders");
 };
 
 module.exports = {
