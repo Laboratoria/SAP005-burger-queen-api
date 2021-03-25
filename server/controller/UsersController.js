@@ -1,6 +1,22 @@
-const getAllUsers = (req, res) => {
-    // console.log("você também pode utilizar o console para visualizar =)")
-    res.send("Request feita")
+const database = require("../db/models")
+
+class UsersController {
+  static async getAllUsers (req, res) {
+  const users = await database.User.findAll()
+    return res.status(200).json(users)
   }
+
+  static async getUserById(req, res) {
+    const { uid } = req.params 
+    const user = await database.User.findAll({
+      where: {
+        id: Number(uid)
+      }
+    });
+    return res.status(200).json(user)
+  }
+
   
-  module.exports = { getAllUsers }
+}
+
+module.exports = UsersController
