@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars *//* eslint-disable consistent-return */
 /* eslint-disable linebreak-style */
@@ -22,8 +23,14 @@ router.use((req, res, next) => {
   }
   next();
 });
-router.get('/users', (req, res) => {}); // Listar todos
-router.post('/users', (req, res) => {}); // Criar
+router.get('/users', (req, res) => {
+  const id = req.params.uid;
+  // eslint-disable-next-line no-self-compare
+  id === 'ola' ? res.send({ messagem: 'Request uid users feita', uid: id }) : res.send({ messagem: 'id invalido' });
+}); // Listar todos
+router.post('/users', (req, res) => {
+  res.send('Request post users');
+}); // Criar
 router.get('/users/:id', (req, res) => {}); // Buscar
 router.put('/users/:id', (req, res) => {}); // Editar
 router.delete('/users/:id', (req, res) => {}); // Deletar
