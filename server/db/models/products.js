@@ -1,13 +1,7 @@
-/* eslint-disable linebreak-style */
-
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Products extends Model {
-    static associate(models) {
-
-    }
-  }
+  class Products extends Model {}
 
   Products.init({
     name: DataTypes.STRING,
