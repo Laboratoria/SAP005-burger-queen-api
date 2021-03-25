@@ -9,6 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
@@ -21,9 +22,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       role: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       restaurant: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
