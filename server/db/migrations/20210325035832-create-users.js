@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Users', {
     id: {
