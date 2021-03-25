@@ -8,12 +8,15 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       order_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       product_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       qtd: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {
