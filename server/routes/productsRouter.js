@@ -3,11 +3,11 @@ const productsController = require("../controller/productsController.js")
 
 const productsRouter = Router()
 
-productsRouter.get("/", productsController.get);
-productsRouter.get("/:productId", productsController.getId);
-productsRouter.post("/", productsController.post);
-productsRouter.put("/:productId", productsController.putId);
-productsRouter.delete("/:productId", productsController.deleteId);
+productsRouter.get("/", productsController.getProducts);
+productsRouter.get("/:productId", productsController.getIdProducts);
+productsRouter.post("/", productsController.postProducts);
+productsRouter.put("/:productId", productsController.putIdProducts);
+productsRouter.delete("/:productId", productsController.deleteIdProducts);
 
 module.exports = productsRouter
 

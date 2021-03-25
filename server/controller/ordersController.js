@@ -1,30 +1,30 @@
-const get = (req, res) => {
+const getOrders = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
     res.send("Request Get Orders");
 };
 
-const getId = (req, res) => {
+const getIdOrders = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
     res.send("Request GetId Orders");
 };
 
-const post = (req, res) => {
+const postOrders = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
     res.send("Request Post Orders");
 };
 
-const putId = (req, res) => {
+const putIdOrders = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
     res.send("Request Put Orders");
 };
 
-const deleteId = (req, res) => {
+const deleteIdOrders = (req, res) => {
     console.log("você também pode utilizar o console para visualizar =)");
     res.send("Request Delete Orders");
 };
 
 module.exports = {
-    get, getId, putId, post, deleteId,
+    getOrders, getIdOrders, putIdOrders, postOrders, deleteIdOrders,
 };
 
 

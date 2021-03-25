@@ -19,13 +19,20 @@
   "homepage": "https://github.com/Laboratoria/SAP005-burger-queen-api#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.7",
+    "nodejs": "0.0.0",
     "path": "^0.12.7",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.5.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0"
   }
 }
