@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return *//* eslint-disable linebreak-style */
 const { Router } = require('express');
 const cors = require('cors');
-const Routers = require('./Router');
+// const Routers = require('./Router');
+const User = require('../db/models/user');
 
 const router = Router();
 router.use(cors());
@@ -19,7 +21,13 @@ router.use((req, res, next) => {
   }
   next();
 });
-router.use('/', Routers);
+router.get('/users', (req, res) => {}); // Listar todos
+router.post('/users', (req, res) => {}); // Criar
+router.get('/users/:id', (req, res) => {}); // Buscar
+router.put('/users/:id', (req, res) => {}); // Editar
+router.delete('/users/:id', (req, res) => {}); // Deletar
+// router.use('/', Routers);
+router.use('/', User);
 
 router.use((req, res, next) => {
   const erro = new Error('Endereço não localizado');
