@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(controller.findUser)
+  .get(controller.getAllUsers)
   .post((req, res) => {
     res.send('Cria um novo usuário.');
   });
