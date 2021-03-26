@@ -3,8 +3,10 @@
 /* eslint-disable linebreak-style */
 const { Router } = require('express');
 const cors = require('cors');
-// const Routers = require('./Router');
-const User = require('../db/models/user');
+const User = require('../db/models/userModel');
+const Users = require('./user');
+const Products = require('./products');
+const Orders = require('./orders');
 
 const router = Router();
 router.use(cors());
@@ -14,7 +16,6 @@ router.use(require('body-parser').json());
 router.use((req, res, next) => {
   res.header('Acces-Control-Allow-Origin', '*'); // Colocado todos ou então preencha com o servidor especifico 'https://meusite.com.br'.
   res.header('Acces-Control-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // O que aceitamos de cabeçalho.
-
   // Tipos de  opções aceita.
   if (req.method === 'OPTIONS') {
     res.header('Acces-Control-Allow-Methods', 'PUT, POST, DELETE, GET');
@@ -22,26 +23,11 @@ router.use((req, res, next) => {
   }
   next();
 });
-router.get('/users', (req, res) => {
-  const id = req.params.uid;
-  // eslint-disable-next-line no-self-compare
-  id === 'ola' ? res.send({ messagem: 'Request uid users feita', uid: id }) : res.send({ messagem: 'id invalido' });
-}); // Listar todos
-router.post('/users', (req, res) => {
-  res.send('Request post users');
-}); // Criar
-router.get('/users/:id', (req, res) => {}); // Buscar
-router.put('/users/:id', (req, res) => {}); // Editar
-router.delete('/users/:id', (req, res) => {}); // Deletar
-// router.use('/', Routers);
-router.use('/', User);
-
 router.use((req, res, next) => {
   const erro = new Error('Endereço não localizado');
   erro.status = 404;
   next(erro);
 });
-
 router.use((error, req, res) => {
   res.status(error.status || 500);
   return res.send({
@@ -50,5 +36,9 @@ router.use((error, req, res) => {
     },
   });
 });
+
+router.use('/users', Users);
+router.use('/products', Products);
+router.use('/orders', Orders);
 
 module.exports = router;
