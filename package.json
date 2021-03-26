@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Laboratoria/SAP005-burger-queen-api#readme",
   "dependencies": {
+    "cli": "^1.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
