@@ -1,29 +1,45 @@
 // aqui vai o código que acessa o banco de dados
-const getUsers = (req, res) => {
-  console.log("você também pode utilizar o console para visualizar =)");
-  res.send("Request Get Users");
-};
 
-const getIdUsers = (req, res) => {
-  console.log("você também pode utilizar o console para visualizar =)");
-  res.send("Request GetId Users");
-};
+const modelsDatabase = require("../db/models")
 
-const postUsers = (req, res) => {
-  console.log("você também pode utilizar o console para visualizar =)");
-  res.send("Request Post Users");
-};
 
-const putIdUsers = (req, res) => {
-  console.log("você também pode utilizar o console para visualizar =)");
-  res.send("Request Put Users");
-};
+class UserController {
+  static async getUsers(req, res){
+    const getUsers = await modelsDatabase.User.findAll()
+    return res.status(200).json(getUsers)
+  }
 
-const deleteIdUsers = (req, res) => {
-  console.log("você também pode utilizar o console para visualizar =)");
-  res.send("Request Delete Users");
+  static async getIdUsers(req, res){
+  const getIdUsers = await modelsDatabase.User.findAll({ 
+    where: {id: Number (req.params)} 
+    });
+  return res.status(200).json(getIdUsers)
+  }
+
+  static async postUsers(req, res){
+  const createUser = req.body;
+  const postUsers = await modelsDatabase.User.create(createUser)
+  return res.status(201).json(postUsers)
+  }
+
+  static async putUsers (req, res){
+    const putUsers = await modelsDatabase.User.update({ 
+      name: req.body.name, 
+      password: req.body.password, 
+      role: req.body.role }, {
+      where: {id: Number (id)} 
+    });
+    return res.status(201).json(putUsers)
+  }
+
+  static async deleteUsers(req, res){
+    const deleteUsers = await modelsDatabase.User.destroy({
+      where: {id: Number(req.params)}
+      });
+    return res.status(201).json(deleteUsers)
+  }
 };
 
 module.exports = {
-  getUsers, getIdUsers, putIdUsers, postUsers, deleteIdUsers,
+  getUsers, getIdUsers, postUsers, putUsers, deleteUsers,
 };
