@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 const express = require('express');
 const cors = require('cors');
-const routes = require('./server/routes/index');
+const routes = require('./server/routes');
 
 const app = express();
 const port = 3000;
