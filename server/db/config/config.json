@@ -1,41 +1,23 @@
-{
+{    
   "development": {
     "username": "pilcrwympgtmup",
     "password": "1c892e2030ef297a7945c04d800925cbe676366027b528bb249e9752ec90d224",
     "database": "ddjqo5h4g6ca0e",
     "host": "ec2-18-233-83-165.compute-1.amazonaws.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "dialect": "postgres"
   },
   "test": {
     "username": "pilcrwympgtmup",
     "password": "1c892e2030ef297a7945c04d800925cbe676366027b528bb249e9752ec90d224",
     "database": "ddjqo5h4g6ca0e",
     "host": "ec2-18-233-83-165.compute-1.amazonaws.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "dialect": "postgres"
   },
   "production": {
     "username": "pilcrwympgtmup",
     "password": "1c892e2030ef297a7945c04d800925cbe676366027b528bb249e9752ec90d224",
     "database": "ddjqo5h4g6ca0e",
     "host": "ec2-18-233-83-165.compute-1.amazonaws.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "dialect": "postgres"
   }
 }
