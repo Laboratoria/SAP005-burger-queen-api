@@ -9,10 +9,12 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
@@ -25,6 +27,7 @@ module.exports = {
       restaurant: {
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: 'Hamburgueria Ipê',
       },
       createdAt: {
         type: Sequelize.DATE,
