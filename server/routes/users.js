@@ -2,24 +2,17 @@ const express = require('express');
 const controller = require('../controller/users');
 
 const router = express.Router();
+const { getAllUsers, createNewUser, getUser, updateUser, deleteUser } = controller;
 
 router
   .route('/')
-  .get(controller.findUser)
-  .post((req, res) => {
-    res.send('Cria um novo usuário.');
-  });
+  .get(getAllUsers)
+  .post(createNewUser);
 
 router
   .route('/:userId')
-  .get((req, res) => {
-    res.send(`Pega dados do usuário ${req.params.userId}.`);
-  })
-  .put((req, res) => {
-    res.send(`Atualiza usuário ${req.params.userId}.`);
-  })
-  .delete((req, res) => {
-    res.send(`Deleta usuário ${req.params.userId}.`);
-  });
+  .get(getUser)
+  .put(updateUser)
+  .delete(deleteUser);
 
 module.exports = router;
