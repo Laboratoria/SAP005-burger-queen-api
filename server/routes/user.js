@@ -4,10 +4,10 @@ const User = require('../controller/usersController');
 
 const router = Router();
 // aqui vai as requisições || endpoints
-router.get('/', User.listAllUsers);
+router.get('/', User.all);
 router.get('/:uid', User.getUser);
-router.post('/', User.createUser);
-router.put('/:uid', User.updateUser);
-router.delete('/:uid', User.deleteUser);
+router.post('/', User.create);
+router.put('/:uid', User.update);
+router.delete('/:uid', User.delete);
 
 module.exports = router;
