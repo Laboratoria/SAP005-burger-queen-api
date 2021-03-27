@@ -20,7 +20,7 @@ module.exports = {
       name, email, password, role, restaurant,
     })
       .then((result) => {
-        res.json(result);
+        res.status(201).json(result);
       }).catch(next);
   },
   getUser(req, res, next) {
@@ -42,7 +42,7 @@ module.exports = {
     userModel.deleteUser({
       where: { uid: req.params.uid },
     })
-      .then((result) => { res.json(result); })
+      .then((result) => { res.status(201).json(result); })
       .catch(next);
   },
 };
