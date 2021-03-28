@@ -1,9 +1,11 @@
 // aqui vai o código que acessa o banco de dados
 
-const { restart } = require("nodemon")
-const { Association } = require("sequelize/types")
+const { response } = require("express");
+const { restart } = require("nodemon");
+const { resolve } = require("path");
+const { nextTick } = require("process");
+const models = require('../db/models')
 
-const dataBase = require("../db/models")
 const bancoDadosUser = [
   {
     "id":1,
@@ -22,37 +24,50 @@ const bancoDadosUser = [
   }
 ]
 
-
 //Pegar todos os usuários ---------------------- ok
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res, next) => {
   try {
-    const allUsers = await dataBase.Users.findAll();
-    return res.status(200).json(allUsers);
-  } catch (err) {
-    return res.status(400).json({ error : err.message })
+    const users = await models.User.findAll();
+    //res.status(200).send(users)
+    res.status(200).json(users);
+  } catch (err){
+    next(err)
   }
 }
-console.log(bancoDadosUser)
+
+
+//Pegar usuário por ID
+const getUserId = async (req, res, next) => {
+  try{
+    const users = await models.User.findAll({
+      where: 
+      {id:req.params.id}
+    })
+    res.status(200).json(users);
+    //res.status(200).send(users)
+    } catch (err){
+      next(err);
+    }
+}
 
 //Criar Usuário ---------------------- ok
-const postUser = async (req, res) => {
-  const newUser = req.body;
-  try {
-    const createdUser = await dataBase.Users.create(newUser);
-    return res.status(201).json(createdUser)
-  } catch (err) {
-    return res.status(400).json({ error: err.message })
+const postUser = async (req, res, next) => {
+  try{
+    const { name, email, password, role, restaurant } = req.body;
+    const user = await models.User.create({
+      name,
+      email,
+      password,
+      role,
+      restaurant,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    res.status(200).json(user);
+  } catch(err){
+    next(err)
   }
 }
-//Pegar usuário por ID
-const getUserId = (req, res) => {
-  const id = Number(req.params.id);
-  const data = bancoDadosUser.filter(item => item.id === id)
-  console.log("get id ok")
-  res.status(200).send(data)
-}
-
-
 //Alterar usuário
 const updateUser = (req, res) => {
   console.log("você também pode utilizar o console para visualizar =)")
