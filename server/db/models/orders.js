@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -19,4 +20,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Orders',
   });
   return Orders;
+// eslint-disable-next-line eol-last
 };

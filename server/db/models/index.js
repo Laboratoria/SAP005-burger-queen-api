@@ -1,10 +1,19 @@
+/* eslint-disable global-require */
+/* eslint-disable arrow-parens */
+/* eslint-disable prefer-template */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable strict */
+// eslint-disable-next-line strict
+// eslint-disable-next-line lines-around-directive
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
+// eslint-disable-next-line import/newline-after-import
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
+// eslint-disable-next-line no-path-concat
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
@@ -17,6 +26,7 @@ if (config.use_env_variable) {
 
 fs
   .readdirSync(__dirname)
+  // eslint-disable-next-line arrow-body-style
   .filter(file => {
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
@@ -34,4 +44,5 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// eslint-disable-next-line eol-last
 module.exports = db;

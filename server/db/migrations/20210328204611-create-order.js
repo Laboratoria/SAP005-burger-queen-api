@@ -1,3 +1,4 @@
+// eslint-disable-next-line linebreak-style
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Orders', {
@@ -40,4 +41,5 @@ module.exports = {
   down: async (queryInterface) => {
     await queryInterface.dropTable('Orders');
   },
+// eslint-disable-next-line eol-last
 };
