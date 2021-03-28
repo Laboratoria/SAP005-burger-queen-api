@@ -5,10 +5,10 @@ const router = Router()
 
 // aqui vai as requisições
 router.get("/", ProductsController.getAllProducts)
-router.get("/products/:id", ProductsController.getProductId)
-router.post("/products", ProductsController.ProductPost)
-router.put("/products/:id", ProductsController.ProductPut)
-router.delete("/products/:id", ProductsController.productsDelete)
+router.get("/:id", ProductsController.getProductId)
+router.post("/", ProductsController.ProductPost)
+router.put("/:id", ProductsController.ProductPut)
+router.delete("/:id", ProductsController.productsDelete)
 
 
 module.exports = router

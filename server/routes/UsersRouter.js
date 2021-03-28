@@ -5,10 +5,10 @@ const router = Router()
 
 // aqui vai as requisições
 router.get("/", UsersController.getAllUsers)
-router.get("/users/:id", UsersController.getUserId)
-router.post("/users", UsersController.usersPost)
-router.put("/users/:id", UsersController.usersPut)
-router.delete("/users/:id", UsersController.usersDelete)
+router.get("/:id", UsersController.getUserId)
+router.post("/", UsersController.usersPost)
+router.put("/:id", UsersController.usersPut)
+router.delete("/:id", UsersController.usersDelete)
 
 
 module.exports = router

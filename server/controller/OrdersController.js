@@ -1,49 +1,92 @@
-const orders = [{
-    "id":1,
-    "name": "Hamburger Simples",
-    "flavor": "frango",
-    "complement": "queijo",
-}];
+const db = require("../db/models");
 
-
-//Pegar usuários
+//RETORNA TODOS OS PEDIDOS
 const getAllOrders = (req, res) => {
-res.send(orders)
+  db.Orders.findAll()
+    .then((result) => {
+      res.status(200).json(result);
+      connection.end();
+    })
+    .catch(() =>
+      res.json({
+        message: "Não foi possível processar a operação",
+      })
+    );
+};
 
-}
-console.log(orders)
+//LOCALIZA PEDIDO POR ID
+const getOrderId = (req, res) => {
+  db.Orders.findAll({ where: { id: req.params.id } })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch(() =>
+      res.json({
+        message: "Não foi possível processar a operação",
+      })
+    );
+};
 
-//Puxar produtos por id
-const getOrderId = (req, res)=> {
-let id = Number(req.params.id)
-const ftArray = orders.filter(data => data.id === id)
-res.status(200).send(ftArray)
-}
-
-//Criar Produtos
+//INSERE UM PEDIDO
 const orderPost = (req, res) => {
-const body = req.body;
-console.log(body);
-if(!body){
-    return res.status(400).end();
-} else { 
-    orders.push(body);
-    return res.status(201).send(body);
-}
-}
-//Alterar produtos
+  const { user_id, client_name, table, status } = req.body;
+  db.Orders.create({
+    user_id,
+    client_name,
+    table,
+    status,
+  })
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch(() =>
+      res.json({
+        message: "Não foi possível processar a operação",
+      })
+    );
+};
+
+//ALTERA UM PEDIDO
 const orderPut = (req, res) => {
-console.log("alterado!")
-res.send("Alterado")
-}
+  const { name, price, flavor, complement, image, type, sub_type } = req.body;
+  db.Orders.update(
+    {
+      name,
+      price,
+      flavor,
+      complement,
+      image,
+      type,
+      sub_type,
+    },
+    { where: { id: req.params.id } }
+  )
+    .then(() => {
+      res.status(200).json({
+        message: "Dados de usuário atualizados com sucesso!",
+      });
+    })
+    .catch(() => {
+      res.json({
+        message: "Não foi possível processar a operação",
+      });
+    });
+};
 
-//Deletar Produtos
+//DELETA UM PEDIDO
 const orderDelete = (req, res) => {
-let id = Number(req.params.id)
-const ftArray2 = orders.filter(data => data.id != id)
-console.log(ftArray2)
-res.status(200).send(ftArray2)
-}
-
+  db.Orders.destroy({ where: { id: req.params.id } })
+    .then(() => {
+      res.status(200).json({
+        message: "Pedido excluído",
+      });
+    })
+    .catch(() => {
+      res.json({
+        message: "Não foi possível processar a operação",
+      });
+    });
+};
 
 module.exports = { getAllOrders, getOrderId , orderPost, orderPut, orderDelete}
+;
