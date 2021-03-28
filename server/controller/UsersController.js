@@ -7,7 +7,7 @@ class UsersController {
     try {
       const users = await database.User.findAll()
       return res.status(200).json(users)
-    } catch (err) {
+    } catch (error) {
       return res.status(400).json({ error: "dados não encontrados" })
     }
   }
@@ -39,6 +39,29 @@ class UsersController {
       return res.status(200).json(createUser);
     } catch (error) {
       return res.status(400).json({ error: "Não foi possível criar um usuário" })
+    }
+  }
+
+  static async updateUser(req, res) {
+    try {
+      const { id, userName, email, password, role, restaurant } = req.body;
+      const updateUser = await models.User.update({
+        id,
+        userName,
+        email,
+        password,
+        role,
+        restaurant
+      },
+        {
+          where: {
+            id: Number(id)
+          }
+        }
+      );
+      return res.json(updateUser);
+    } catch (error) {
+      return res.status(400).json({ error: "Não foi possível atualizar o usuário" })
     }
   }
 
