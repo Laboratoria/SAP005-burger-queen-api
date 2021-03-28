@@ -1,14 +1,13 @@
 const database = require("../db/models")
 const models = require("../db/models")
 
-
 class UsersController {
   static async getAllUsers(req, res) {
     try {
-      const users = await database.User.findAll()
-      return res.status(200).json(users)
+      const getUsers = await database.User.findAll()
+      return res.status(200).json(getUsers)
     } catch (error) {
-      return res.status(400).json({ error: "dados não encontrados" })
+      return res.status(400).json({ error: "Não foi possível encontrar os usuários" })
     }
   }
 
@@ -22,7 +21,7 @@ class UsersController {
       });
       return res.status(200).json(userId)
     } catch (error) {
-      return res.status(400).json({ error: "dados não encontrados" })
+      return res.status(400).json({ error: "Não foi possível encontrar o usuário" })
     }
   }
 
@@ -55,17 +54,28 @@ class UsersController {
       },
         {
           where: {
-            id: Number(id)
+            id: req.params.id
           }
         }
       );
-      return res.json(updateUser);
+      return res.status(200).json(updateUser);
     } catch (error) {
       return res.status(400).json({ error: "Não foi possível atualizar o usuário" })
     }
   }
 
-
+  static async deleteUser (req, res) {
+    try {
+      const deleteUser = await models.User.destroy({
+        where: {
+          id: req.params.id
+        }
+      });
+      return res.status(200).json(deleteUser);
+    } catch (error) {
+      return res.status(400).json({ error: "Não foi possível deletar o usuário" })
+    }
+  }
 }
 
 module.exports = UsersController
