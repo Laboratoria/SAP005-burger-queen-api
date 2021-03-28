@@ -5,9 +5,9 @@ class UsersController {
   static async getAllUsers(req, res) {
     try {
       const getUsers = await database.User.findAll()
-      return res.status(200).json(getUsers)
+      return res.status(200).json(getUsers);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível encontrar os usuários" })
+      return res.status(400).json({ error: "Não foi possível encontrar os usuários" });
     }
   }
 
@@ -19,9 +19,9 @@ class UsersController {
           id: Number(uid)
         }
       });
-      return res.status(200).json(userId)
+      return res.status(200).json(userId);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível encontrar o usuário" })
+      return res.status(400).json({ error: "Não foi possível encontrar o usuário" });
     }
   }
 
@@ -33,11 +33,13 @@ class UsersController {
         email,
         password,
         role,
-        restaurant
+        restaurant,
+        createdAt: new Date(),
+        updateAt: new Date()
       })
       return res.status(200).json(createUser);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível criar um usuário" })
+      return res.status(400).json({ error: "Não foi possível criar um usuário" });
     }
   }
 
@@ -60,7 +62,7 @@ class UsersController {
       );
       return res.status(200).json(updateUser);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível atualizar o usuário" })
+      return res.status(400).json({ error: "Não foi possível atualizar o usuário" });
     }
   }
 
@@ -73,7 +75,7 @@ class UsersController {
       });
       return res.status(200).json(deleteUser);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível deletar o usuário" })
+      return res.status(400).json({ error: "Não foi possível deletar o usuário" });
     }
   }
 }
