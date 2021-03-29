@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars *//* eslint-disable linebreak-style */
-
 const {
   Model,
 } = require('sequelize');
@@ -12,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    role: DataTypes.STRING,
+    restaurant: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',

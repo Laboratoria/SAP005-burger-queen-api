@@ -3,20 +3,25 @@
 const userModel = require('../db/models/userModel');
 
 module.exports = {
-  listAllUsers(req, res, next) {
+  all(res, next) {
     userModel.findAll({
       attr: {
         exclude: ['password'],
       },
     })
       .then((result) => { res.json(result); })
+      // .catch({
+      //   error: {
+      //     mensagem: error.message,
+      //   },
+      // })
       .catch(next);
   },
-  createUser(req, res, next) {
+  create(req, res, next) {
     const {
       name, email, password, role, restaurant,
     } = req.body;
-    userModel.createUser({
+    userModel.create({
       name, email, password, role, restaurant,
     })
       .then((result) => {
@@ -31,15 +36,15 @@ module.exports = {
       .then((result) => { res.json(result); })
       .catch(next);
   },
-  updateUser(req, res, next) {
-    userModel.updateUser({ name: req.body.name }, {
+  update(req, res, next) {
+    userModel.update({ name: req.body.name }, {
       where: { uid: req.params.uid },
     })
       .then((result) => { res.json(result); })
       .catch(next);
   },
-  deleteUser(req, res, next) {
-    userModel.deleteUser({
+  delete(req, res, next) {
+    userModel.delete({
       where: { uid: req.params.uid },
     })
       .then((result) => { res.status(201).json(result); })
