@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 const users = require('./users');
 const products = require('./products');
 const orders = require('./orders');

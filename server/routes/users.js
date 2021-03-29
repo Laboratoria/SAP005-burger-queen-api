@@ -1,25 +1,21 @@
 const express = require('express');
-const controller = require('../controller/ExampleController');
+const controller = require('../controller/users');
 
-let router = express.Router();
+const router = express.Router();
 
-router
-  .router('/')
-  .get(controller.getAllExamples)
-  .post((req, res) => {
-    req.send('Cria um novo usuário');
-  });
+const {
+  getUsers, createUser, getUserById, updateUser, deleteUser,
+} = controller;
 
 router
-  .router('/user:Id')
-  .get((req, res) => {
-    req.send('Pega os dados do usuário');
-  })
-  .put((req, res) => {
-    req.send('Atualiza os dados do usuário');
-  })
-  .delete((req, res) => {
-    req.send('Deleta os dados do usuário');
-  });
+  .route('/')
+  .get(getUsers)
+  .post(createUser);
+
+router
+  .route('/:id')
+  .get(getUserById)
+  .put(updateUser)
+  .delete(deleteUser);
 
 module.exports = router;
