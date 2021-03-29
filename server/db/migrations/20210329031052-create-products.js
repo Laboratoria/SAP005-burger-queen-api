@@ -1,10 +1,9 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable strict */
 // eslint-disable-next-line lines-around-directive
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Products', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,16 +13,22 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      email: {
+      flavor: {
         type: Sequelize.STRING,
       },
-      password: {
+      complement: {
+        type: Sequelize.STRING,
+      },
+      price: {
         type: Sequelize.INTEGER,
       },
-      role: {
+      image: {
         type: Sequelize.STRING,
       },
-      restaurant: {
+      type: {
+        type: Sequelize.STRING,
+      },
+      subtype: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -38,6 +43,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Products');
   },
 };
