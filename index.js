@@ -1,13 +1,18 @@
-/* eslint-disable linebreak-style */
-const express = require('express');
-const cors = require('cors');
-const routes = require('./server/routes');
+/* eslint-disable consistent-return *//* eslint-disable linebreak-style */
 require('dotenv').config();
+const express = require('express');
+// const cors = require('cors');
+const routes = require('./server/routes');
 
+const port = process.env.PORT || 3000;
 const app = express();
-const port = 3000;
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(routes);
-app.listen(process.env.PORT || port);
+app.use((err, res, next) => {
+  if (process.env.NODE_ENV === 'production') res.status(500).json({ error: 'server error' });
+  else return next(err);
+});
+
+app.listen(port);

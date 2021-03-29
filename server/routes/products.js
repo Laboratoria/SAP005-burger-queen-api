@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 const { Router } = require('express');
-const Products = require('../controller/Products');
+const Products = require('../controller/productsController');
 
 const router = Router();
 router.get('/', Products.getProducts);

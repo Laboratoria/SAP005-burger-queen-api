@@ -3,18 +3,18 @@
 const userModel = require('../db/models/userModel');
 
 module.exports = {
-  all(req, res, next, error) {
+  all(res, next) {
     userModel.findAll({
       attr: {
         exclude: ['password'],
       },
     })
       .then((result) => { res.json(result); })
-      .catch({
-        error: {
-          mensagem: error.message,
-        },
-      })
+      // .catch({
+      //   error: {
+      //     mensagem: error.message,
+      //   },
+      // })
       .catch(next);
   },
   create(req, res, next) {
