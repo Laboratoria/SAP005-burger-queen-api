@@ -1,27 +1,25 @@
-const database = require("../db/models")
 const models = require("../db/models")
 
 class ProductsController {
   static async getAllProducts(req, res) {
     try {
-      const getProducts = await database.Products.findAll()
+      const getProducts = await models.Products.findAll()
       return res.status(200).json(getProducts);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível encontrar os produtos" });
+      return res.status(400).json({ error: "Products not found" });
     }
   }
 
   static async getProductById(req, res) {
-    const { productId } = req.params
     try {
-      const pId = await database.Products.findAll({
+      const productId = await models.Products.findAll({
         where: {
-          id: Number(productId)
+          id: req.params.productId
         }
       });
-      return res.status(200).json(pId);
+      return res.status(200).json(productId);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível encontrar o produto" });
+      return res.status(400).json({ error: "Product not found" });
     }
   }
 
@@ -41,15 +39,14 @@ class ProductsController {
       })
       return res.status(200).json(createProduct);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível criar um produto" });
+      return res.status(400).json({ error: "Could not create a product" });
     }
   }
 
   static async updateProduct(req, res) {
-    const { productId } = req.params
     try {
       const { name, price, flavor, complement, image, type, sub_type } = req.body;
-      const updateProduct = await database.Products.update({
+      const updateProduct = await models.Products.update({
         name,
         price,
         flavor,
@@ -57,18 +54,17 @@ class ProductsController {
         image,
         type, 
         sub_type,
-        createdAt: new Date(),
         updateAt: new Date()
       },
         {
           where: {
-            id: Number(productId)
+            id: req.params.productId
           }
         }
       );
       return res.status(200).json(updateProduct);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível atualizar o produto" });
+      return res.status(400).json({ error: "The product could not be updated" });
     }
   }
 
@@ -81,10 +77,9 @@ class ProductsController {
       });
       return res.status(200).json(deleteProduct);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível deletar o produto" });
+      return res.status(400).json({ error: "It was not possible to delete the product" });
     }
   }
-
 }
 
 module.exports = ProductsController
