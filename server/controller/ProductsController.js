@@ -54,7 +54,6 @@ class ProductsController {
         image,
         type, 
         sub_type,
-        updateAt: new Date()
       },
         {
           where: {
