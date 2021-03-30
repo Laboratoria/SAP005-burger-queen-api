@@ -45,6 +45,46 @@ class ProductsController {
     }
   }
 
+  static async updateProduct(req, res) {
+    const { productId } = req.params
+    try {
+      const { name, price, flavor, complement, image, type, sub_type } = req.body;
+      const updateProduct = await database.Products.update({
+        name,
+        price,
+        flavor,
+        complement,
+        image,
+        type, 
+        sub_type,
+        createdAt: new Date(),
+        updateAt: new Date()
+      },
+        {
+          where: {
+            id: Number(productId)
+          }
+        }
+      );
+      return res.status(200).json(updateProduct);
+    } catch (error) {
+      return res.status(400).json({ error: "Não foi possível atualizar o produto" });
+    }
+  }
+
+  static async deleteProduct (req, res) {
+    try {
+      const deleteProduct = await models.Products.destroy({
+        where: {
+          id: req.params.productId
+        }
+      });
+      return res.status(200).json(deleteProduct);
+    } catch (error) {
+      return res.status(400).json({ error: "Não foi possível deletar o produto" });
+    }
+  }
+
 }
 
 module.exports = ProductsController
