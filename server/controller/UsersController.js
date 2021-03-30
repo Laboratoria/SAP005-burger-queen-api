@@ -1,27 +1,25 @@
-const database = require("../db/models")
 const models = require("../db/models")
 
 class UsersController {
   static async getAllUsers(req, res) {
     try {
-      const getUsers = await database.User.findAll()
+      const getUsers = await models.User.findAll()
       return res.status(200).json(getUsers);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível encontrar os usuários" });
+      return res.status(400).json({ error: "Users not found" });
     }
   }
 
   static async getUserById(req, res) {
-    const { uid } = req.params
     try {
-      const userId = await database.User.findAll({
+      const userId = await models.User.findAll({
         where: {
-          id: Number(uid)
+          id: req.params.uid
         }
       });
       return res.status(200).json(userId);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível encontrar o usuário" });
+      return res.status(400).json({ error: "User not found" });
     }
   }
 
@@ -39,15 +37,14 @@ class UsersController {
       })
       return res.status(200).json(createUser);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível criar um usuário" });
+      return res.status(400).json({ error: "Could not create user" });
     }
   }
 
   static async updateUser(req, res) {
     try {
-      const { id, userName, email, password, role, restaurant } = req.body;
+      const { userName, email, password, role, restaurant } = req.body;
       const updateUser = await models.User.update({
-        id,
         userName,
         email,
         password,
@@ -56,13 +53,13 @@ class UsersController {
       },
         {
           where: {
-            id: req.params.id
+            id: req.params.uid
           }
         }
       );
       return res.status(200).json(updateUser);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível atualizar o usuário" });
+      return res.status(400).json({ error: "Could not update user" });
     }
   }
 
@@ -70,12 +67,12 @@ class UsersController {
     try {
       const deleteUser = await models.User.destroy({
         where: {
-          id: req.params.id
+          id: req.params.uid
         }
       });
       return res.status(200).json(deleteUser);
     } catch (error) {
-      return res.status(400).json({ error: "Não foi possível deletar o usuário" });
+      return res.status(400).json({ error: "It was not possible to delete the user" });
     }
   }
 }
