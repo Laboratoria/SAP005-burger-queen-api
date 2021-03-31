@@ -1,63 +1,86 @@
-
-const bancoDadosProduto = [
-  {
-    "id":1,
-    "name": "Hamburger Simples",
-    "flavor": "carne",
-    "complement": "queijo",
-  },
-  {
-    "id":2,
-    "name": "Hamburger Simples",
-    "flavor": "frango",
-    "complement": "queijo",
-  },
-  {
-    "id":3,
-    "name": "Hamburger Simples",
-    "flavor": "vegetariano",
-    "complement": "queijo",
-  }
-]
+const models = require('../db/models')
 
 
 //Pegar todos os usuários ---------------------- ok
-const getAllProducts = (req, res) => {
-  res.send(bancoDadosProduto)
-  
+const getAllProducts = (req, res, next) => {
+  try {
+    const users = models.Products.findAll();
+    res.status(200).json(users);
+  } catch (err){
+    next(err)
+  } 
 }
-console.log(bancoDadosProduto)
 
 //Pegar produto por ID -------------------ok
 const getProductId = (req, res)=> {
-  let id = Number(req.params.id)
-  const arrayFiltered = bancoDadosProduto.filter(data => data.id === id)
-  res.status(200).send(arrayFiltered)
+  try {
+    const users = models.Products.findAll({
+      where: 
+      {id:req.params.id}
+    })
+    res.status(200).json(users);
+    } catch (err){
+      next(err);
+    }
 }
 
 //Criar Produto ---------------------- ok
-const postProduct = (req, res) => {
-  const body = req.body;
-  console.log(body);
-  if(!body){
-    return res.status(400).end();
-  } else { 
-    bancoDadosProduto.push(body);
-    return res.status(201).send(body);
+const postProduct = (req, res, next) => {
+  try {
+    const { name, price, flavor, complement, image, type, sub_type } = req.body;
+    const user = models.Products.create({
+      name,
+      price,
+      flavor,
+      complement,
+      image,
+      type,
+      sub_type,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    res.status(200).json(user);
+  } catch(err){
+    next(err);
   }
 }
 //Criar Produto
-const updateProduct = (req, res) => {
-  console.log("alterar user ok")
-  res.send("alterar user ok")
+const updateProduct = (req, res, next) => {
+  try {
+    const {id, name, email, password, role, restaurant } = req.body;
+    const users = models.Products.update(
+      { 
+        id,
+        name, 
+        price, 
+        flavor, 
+        complement, 
+        image,
+        type,
+        sub_type
+      },
+      {
+        where:
+        { id: req.params.id }
+      } 
+    )
+    return res.json(users);
+  } catch(err) {
+    next(err);
+  }
 }
 
 //Deletar Produto ---------------------- ok
-const deleteProducts = (req, res) => {
-  let id = Number(req.params.id)
-  const arrayFiltered1 = bancoDadosProduto.filter(data => data.id != id)
-  console.log(arrayFiltered1)
-  res.status(200).send(arrayFiltered1)
+const deleteProducts = (req, res, next) => {
+  try {
+    const users = models.Products.destroy({
+      where: 
+      {id:req.params.id}
+    });
+    return res.json(users);
+  } catch(err) {
+    next(err);
+  }
 }
 
 
