@@ -2,23 +2,16 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
 // eslint-disable-next-line quotes
-const db = require("../db/models");
+const db = require('../db/models');
 
 const getAllProducts = (req, res) => {
   db.Products.findAll()
     .then((result) => {
       res.status(200).json(result);
-      connection.end();
     })
-    .catch(() =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      res.json({
-        // eslint-disable-next-line quotes
-        message: "Não foi possível processar a operação",
-      // eslint-disable-next-line comma-dangle
-      })
-    // eslint-disable-next-line function-paren-newline
-    );
+    .catch(() => res.status(400).json({
+      message: 'erro ao processar requisição',
+    }));
 };
 
 const getProductId = (req, res) => {

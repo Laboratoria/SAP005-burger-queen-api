@@ -4,7 +4,7 @@ const { Router } = require('express')
 // eslint-disable-next-line semi
 const UsersRouter = require('./UsersRouter')
 // eslint-disable-next-line quotes
-const ProductsRouter = require("./ProductsRouter");
+const ProductsRouter = require('./ProductsRouter');
 const OrdersRouter = require('./OrdersRouter');
 
 const router = Router();

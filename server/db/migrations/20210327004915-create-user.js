@@ -18,6 +18,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       password: {
@@ -31,6 +32,7 @@ module.exports = {
       restaurant: {
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: 'Lab Burger',
       },
       createdAt: {
         type: Sequelize.DATE,

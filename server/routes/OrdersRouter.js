@@ -1,14 +1,16 @@
+/* eslint-disable eol-last */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const { Router } = require('express');
 const OrdersController = require('../controller/OrdersController');
 
 const router = Router();
 
 // aqui vai as requisições
-router.get('/', OrdersController.getAllOrders);
+router.get('/', OrdersController.getOrderAll);
 router.get('/:id', OrdersController.getOrderId);
-router.post('/', OrdersController.orderPost);
-router.put('/:id', OrdersController.orderPut);
-router.delete('/:id', OrdersController.orderDelete);
+router.post('/', OrdersController.orderCreate);
+router.put('/:id', OrdersController.updateOrderId);
+router.delete('/:id', OrdersController.deleteOrderId);
 
-// eslint-disable-next-line eol-last
 module.exports = router;

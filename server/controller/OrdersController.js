@@ -1,118 +1,103 @@
-/* eslint-disable object-curly-newline */
+/* eslint-disable eol-last */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
-/* eslint-disable no-undef */
-// eslint-disable-next-line quotes
-const db = require("../db/models");
 
-// eslint-disable-next-line spaced-comment
-//RETORNA TODOS OS PEDIDOS
-const getAllOrders = (req, res) => {
+const db = require('../db/models');
+
+const getOrderAll = (req, res) => {
   db.Orders.findAll()
     .then((result) => {
       res.status(200).json(result);
-      connection.end();
     })
-    .catch(() =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      res.json({
-        // eslint-disable-next-line quotes
-        message: "Não foi possível processar a operação",
-      // eslint-disable-next-line comma-dangle
-      })
-    // eslint-disable-next-line function-paren-newline
-    );
+    .catch(() => res.status(400).json({
+      message: 'erro ao processar requisição',
+    }));
 };
 
-// LOCALIZA PEDIDO POR ID
-const getOrderId = (req, res) => {
-  db.Orders.findAll({ where: { id: req.params.id } })
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch(() =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      res.json({
-        message: 'Não foi possível processar a operação',
-      // eslint-disable-next-line comma-dangle
-      })
-    // eslint-disable-next-line function-paren-newline
-    );
-};
+const orderCreate = (req, res) => {
+  const {
+    user_id, client_name, table, status, processedAt,
+  } = req.body;
 
-// INSERE UM PEDIDO
-const orderPost = (req, res) => {
-  // eslint-disable-next-line object-curly-newline
-  const { user_id, client_name, table, status } = req.body;
   db.Orders.create({
     user_id,
     client_name,
     table,
     status,
+    processedAt,
   })
     .then((result) => {
-      res.status(201).json(result);
+      req.body.products.map((product) => {
+        const itemProduct = db.Products.findByPk(product.id);
+        if (!itemProduct) {
+          return res.status(400).json({
+            message: 'erro ao buscar produto',
+          });
+        }
+
+        const itemOrders = {
+          order_id: result.id,
+          product_id: product.id,
+          qtd: product.qtd,
+        };
+
+        db.ProductOrders.create(itemOrders);
+
+        return res.status(200).json(result);
+      });
     })
-    .catch(() =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      res.json({
-        // eslint-disable-next-line quotes
-        message: "Não foi possível processar a operação",
-      // eslint-disable-next-line comma-dangle
-      })
-    // eslint-disable-next-line function-paren-newline
-    );
+    .catch(() => res.status(400).json({
+      message: 'erro ao criar pedido',
+    }));
 };
 
-// ALTERA UM PEDIDO
-const orderPut = (req, res) => {
-  // eslint-disable-next-line object-curly-newline
-  const { name, price, flavor, complement, image, type, sub_type } = req.body;
-  db.Orders.update(
-    {
-      name,
-      price,
-      flavor,
-      complement,
-      image,
-      type,
-      sub_type,
-    },
-    // eslint-disable-next-line comma-dangle
-    { where: { id: req.params.id } }
-  )
+const getOrderId = (req, res) => {
+  db.Orders.findAll({
+    where: { id: req.params.id },
+  })
+    .then((product) => {
+      res.status(200).json(product);
+    })
+    .catch(() => res.status(400).json({
+      message: 'erro ao processar requisição',
+    }));
+};
+
+const updateOrderId = (req, res) => {
+  const {
+    status,
+  } = req.body;
+  db.Orders.update({
+    status,
+  }, { where: { id: req.params.id } })
+
     .then(() => {
       res.status(200).json({
-        // eslint-disable-next-line quotes
-        message: "Dados de usuário atualizados com sucesso!",
+        message: 'ordem atualizada',
       });
     })
-    .catch(() => {
-      res.json({
-        // eslint-disable-next-line quotes
-        message: "Não foi possível processar a operação",
-      });
-    });
+    .catch(() => res.status(400).json({
+      message: 'erro ao atualizar ordem',
+    }));
 };
 
-// DELETA UM PEDIDO
-const orderDelete = (req, res) => {
+const deleteOrderId = (req, res) => {
   db.Orders.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        // eslint-disable-next-line quotes
-        message: "Pedido excluído",
+        message: 'ordem excluída',
       });
     })
-    .catch(() => {
-      res.json({
-        // eslint-disable-next-line quotes
-        message: "Não foi possível processar a operação",
-      });
-    });
+    .catch(() => res.status(400).json({
+      message: 'erro ao excluir ordem',
+    }));
 };
 
-// eslint-disable-next-line object-curly-newline
-// eslint-disable-next-line eol-last
-// eslint-disable-next-line object-curly-newline
-// eslint-disable-next-line eol-last
-module.exports = { getAllOrders, getOrderId, orderPost, orderPut, orderDelete };
+module.exports = { 
+  getOrderAll,
+  getOrderId,
+  orderCreate,
+  updateOrderId,
+  deleteOrderId,
+};

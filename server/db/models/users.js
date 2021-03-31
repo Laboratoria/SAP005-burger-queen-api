@@ -1,3 +1,6 @@
+/* eslint-disable semi */
+/* eslint-disable quotes */
+/* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 /* eslint-disable import/newline-after-import */
 /* eslint-disable linebreak-style */

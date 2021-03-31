@@ -1,7 +1,11 @@
+/* eslint-disable eol-last */
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+// eslint-disable-next-line strict
+// eslint-disable-next-line lines-around-directive
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Products extends Model {
     /**
@@ -10,17 +14,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Products.hasMany(models.ProductOrders, {
+        foreignKey: 'product_id',
+      });
     }
-  };
+  }
   Products.init({
     name: DataTypes.STRING,
+    price: DataTypes.DOUBLE,
     flavor: DataTypes.STRING,
     complement: DataTypes.STRING,
-    price: DataTypes.INTEGER,
     image: DataTypes.STRING,
     type: DataTypes.STRING,
-    subtype: DataTypes.STRING
+    sub_type: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Products',

@@ -1,11 +1,14 @@
-/* eslint-disable no-unused-vars */
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Orders extends Model {
     static associate(models) {
-      // orders pertence ao user_id => (userModel)
-      // products tem muitas order_Id => (productOrderModel)
+      Orders.belongsTo(models.Users, {
+        foreignKey: 'user_id',
+      }); // orders pertence ao user_id => (userModel)
+      Orders.hasMany(models.ProductOrders, {
+        foreignKey: 'order_id',
+      }); // products tem muitas order_id => (productOrderModel)
       // (coluna que ta armazenada dentro do productOrderModel)
     }
   }

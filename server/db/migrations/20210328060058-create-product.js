@@ -10,8 +10,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         // eslint-disable-next-line comma-dangle

@@ -107,4 +107,4 @@ const usersDelete = (req, res) => {
 module.exports = {
   // eslint-disable-next-line indent
  getAllUsers, getUserId, usersPost, usersPut, usersDelete,
-}
+};
