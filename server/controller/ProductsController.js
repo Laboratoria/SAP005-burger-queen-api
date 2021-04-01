@@ -1,40 +1,66 @@
-// aqui vai o código que acessa o banco de dados
-const Products = require("../db/models/ProductsModels")
- 
-const getAllProducts = async (req, res) => {
-   const products = await Products.findAll()
-   res.status(200).send(products)
-}
-const postProducts = async (req, res) =>{
-   const {name,flavor,complement,image,type,sub_type,price}= req.body
-   const post = await Products.create({name,flavor,complement,image,type,sub_type,price})
-   res.status(200).send(post)
-  
-}
-const getProductsUid = async (req, res) =>{
-   const id = req.params
-   const products = await Products.findOne({
-      where:id,
-   });
-   res.status(200).send(products)
-}
-
-const putProducts = async (req, res) =>{
-   const{name,flavor,complement,image,type,sub_type,price}= req.body
-   const id = req.params
-   const products = await Products.update({name,flavor,complement,image,type,sub_type,price},{
-      where:id
-   });
-   res.status(200).send(products)
-}
-
-const deleteProducts = async (req, res) => {
-   const id = req.params
-   await Products.destroy({
-      where:id
-   });
-   res.status(200).send("Produto deletado com sucesso")
-}
-
-
-module.exports = {getAllProducts,postProducts,getProductsUid,putProducts,deleteProducts}
+const db = require('../db/models');
+const ProductsController = {
+  async getAllProducts(req, res) {
+    try {
+      const products = await db.Products.findAll();
+      res.status(200).send(products);
+    } catch (error) {
+      res.status(400).send('deu ruim');
+    }
+  },
+  async getProductId(req, res) {
+    try {
+      const id = req.params;
+      const product = await db.Products.findOne({
+        where: id,
+      });
+      res.status(200).send(product);
+    } catch (error) {
+      res.status(400).send('deu ruim');
+    }
+  },
+  async postProducts(req, res) {
+    try {
+      const {
+        name, price, flavor, complement, image, subType, type,
+      } = req.body;
+      const product = await db.Products.create({
+        name, price, flavor, complement, image, subType, type,
+      });
+      res.status(200).send(product);
+    } catch (error) {
+      res.status(400).send('deu ruim');
+    }
+  },
+  async putProducts(req, res) {
+    try {
+      const {
+        name, price, flavor, complement, image, subType, type,
+      } = req.body;
+      const id = req.params;
+      await db.Products.update(
+        {
+          name, price, flavor, complement, image, subType, type,
+        },
+        {
+          where: id,
+        },
+      );
+      res.status(200).send('dados alterados');
+    } catch (error) {
+      res.status(400).send('deu ruim');
+    }
+  },
+  async deleteProducts(req, res) {
+    try {
+      const id = req.params;
+      await db.Products.destroy({
+        where: id,
+      });
+      res.status(200).send('produto deletado');
+    } catch (error) {
+      res.status(400).send('deu ruim');
+    }
+  },
+};
+module.exports = ProductsController;

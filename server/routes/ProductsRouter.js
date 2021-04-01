@@ -6,7 +6,7 @@ const router = Router()
 // aqui vai as requisições
 router.get("/",ProductsController.getAllProducts)
 router.post("/",ProductsController.postProducts)
-router.get("/:id",ProductsController.getProductsUid)
+router.get("/:id",ProductsController.getProductId)
 router.put("/:id",ProductsController.putProducts)
 router.delete("/:id",ProductsController.deleteProducts)
 
