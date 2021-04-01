@@ -1,9 +1,6 @@
-// eslint-disable-next-line semi
-const { Router } = require('express')
-// eslint-disable-next-line quotes
-// eslint-disable-next-line semi
-const UsersRouter = require('./UsersRouter')
-// eslint-disable-next-line quotes
+/* eslint-disable eol-last */
+const { Router } = require('express');
+const UsersRouter = require('./UsersRouter');
 const ProductsRouter = require('./ProductsRouter');
 const OrdersRouter = require('./OrdersRouter');
 
