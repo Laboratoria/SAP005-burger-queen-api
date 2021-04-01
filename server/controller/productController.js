@@ -2,9 +2,9 @@ const models = require('../db/models')
 
 
 //Pegar todos os usuários ---------------------- ok
-const getAllProducts = (req, res, next) => {
+const getAllProducts = async (req, res, next) => {
   try {
-    const users = models.Products.findAll();
+    const users = await models.Products.findAll();
     res.status(200).json(users);
   } catch (err){
     next(err)
@@ -12,9 +12,9 @@ const getAllProducts = (req, res, next) => {
 }
 
 //Pegar produto por ID -------------------ok
-const getProductId = (req, res)=> {
+const getProductId = async (req, res, next)=> {
   try {
-    const users = models.Products.findAll({
+    const users = await models.Products.findAll({
       where: 
       {id:req.params.id}
     })
@@ -25,10 +25,10 @@ const getProductId = (req, res)=> {
 }
 
 //Criar Produto ---------------------- ok
-const postProduct = (req, res, next) => {
+const postProduct = async (req, res, next) => {
   try {
     const { name, price, flavor, complement, image, type, sub_type } = req.body;
-    const user = models.Products.create({
+    const user = await models.Products.create({
       name,
       price,
       flavor,
@@ -44,11 +44,11 @@ const postProduct = (req, res, next) => {
     next(err);
   }
 }
-//Criar Produto
-const updateProduct = (req, res, next) => {
+//editar Produto
+const updateProduct = async (req, res, next) => {
   try {
-    const {id, name, email, password, role, restaurant } = req.body;
-    const users = models.Products.update(
+    const {id, name, price, flavor, complement, image, type, sub_type } = req.body;
+    const users = await models.Products.update(
       { 
         id,
         name, 
@@ -71,9 +71,9 @@ const updateProduct = (req, res, next) => {
 }
 
 //Deletar Produto ---------------------- ok
-const deleteProducts = (req, res, next) => {
+const deleteProducts = async (req, res, next) => {
   try {
-    const users = models.Products.destroy({
+    const users = await models.Products.destroy({
       where: 
       {id:req.params.id}
     });

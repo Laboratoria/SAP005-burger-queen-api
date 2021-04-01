@@ -1,56 +1,79 @@
-
-const bancoDadosOrder = [{
-    "id":1,
-    "name": "Hamburger Simples",
-    "flavor": "carne",
-    "complement": "queijo",
-    },
-    {
-    "id":2,
-    "name": "Hamburger Simples",
-    "flavor": "frango",
-    "complement": "queijo",
-    },
-    ];
+const models = require('../db/models')
 
 
-//Pegar todos os usuários ---------------------- ok
-const getAllOrders = (req, res) => {
-res.send(bancoDadosOrder)
-
-}
-console.log(bancoDadosOrder)
-
-//Pegar produto por ID -------------------ok
-const getOrderId = (req, res)=> {
-let id = Number(req.params.id)
-const arrayFiltered = bancoDadosOrder.filter(data => data.id === id)
-res.status(200).send(arrayFiltered)
+//Pegar todos ---------------------- ok
+const getAllOrders = async (req, res, next) => {
+    try {
+      const users = await models.Orders.findAll();
+      res.status(200).json(users);
+    } catch (err){
+      next(err)
+    } 
 }
 
-//Criar Produto ---------------------- ok
-const postOrder = (req, res) => {
-const body = req.body;
-console.log(body);
-if(!body){
-    return res.status(400).end();
-} else { 
-    bancoDadosOrder.push(body);
-    return res.status(201).send(body);
-}
-}
-//Criar Produto
-const updateOrder = (req, res) => {
-console.log("alterar user ok")
-res.send("alterar user ok")
+
+//Pegar por ID -------------------ok
+const getOrderId = async (req, res)=> {
+  try {
+    const users = await models.Orders.findAll({
+      where: 
+      {id:req.params.id}
+    })
+    res.status(200).json(users);
+    } catch (err){
+      next(err);
+    }
 }
 
-//Deletar Produto ---------------------- ok
-const deleteOrder = (req, res) => {
-let id = Number(req.params.id)
-const arrayFiltered1 = bancoDadosOrder.filter(data => data.id != id)
-console.log(arrayFiltered1)
-res.status(200).send(arrayFiltered1)
+//Criar  ---------------------- ok
+const postOrder = async (req, res, next) => {
+  try {
+    const { user_id, client_name, table, status, processedAt } = req.body;
+    const user = await models.Orders.create({
+      user_id,
+      client_name,
+      table,
+      status,
+      processedAt,
+    })
+    res.status(200).json(user);
+  } catch(err){
+    next(err);
+  }
+}
+//atualizar
+const updateOrder = async (req, res, next) => {
+  try {
+    const {user_id, client_name, table, status } = req.body;
+    const users = await models.Orders.update(
+      { 
+        user_id,
+        client_name,
+        table,
+        status
+      },
+      {
+        where:
+        { id: req.params.id }
+      } 
+    )
+    return res.json(users);
+  } catch(err) {
+    next(err);
+  }
+}
+
+//Deletar  ---------------------- ok
+const deleteOrder = (req, res, next) => {
+  try {
+    const users = models.Orders.destroy({
+      where: 
+      {id:req.params.id}
+    });
+    return res.json(users);
+  } catch(err) {
+    next(err);
+  }
 }
 
 

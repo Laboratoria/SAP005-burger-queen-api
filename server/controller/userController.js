@@ -1,9 +1,3 @@
-// aqui vai o código que acessa o banco de dados
-
-const { response } = require("express");
-const { restart } = require("nodemon");
-const { resolve } = require("path");
-const { nextTick } = require("process");
 const models = require('../db/models')
 
 const getAllUsers = async (req, res, next) => {
