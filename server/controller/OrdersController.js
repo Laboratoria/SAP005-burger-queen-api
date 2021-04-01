@@ -1,5 +1,6 @@
+/* eslint-disable object-curly-spacing */
+/* eslint-disable comma-dangle */
 /* eslint-disable eol-last */
-/* eslint-disable no-trailing-spaces */
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 
@@ -94,10 +95,7 @@ const deleteOrderId = (req, res) => {
     }));
 };
 
-module.exports = { 
-  getOrderAll,
-  getOrderId,
-  orderCreate,
-  updateOrderId,
-  deleteOrderId,
-};
+// eslint-disable-next-line comma-dangle
+// eslint-disable-next-line comma-spacing
+// eslint-disable-next-line object-curly-newline
+module.exports = { getOrderAll, getOrderId, orderCreate, updateOrderId, deleteOrderId, };

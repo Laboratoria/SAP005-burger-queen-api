@@ -1,5 +1,5 @@
 /* eslint-disable eol-last */
-/* eslint-disable linebreak-style */
+'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Orders', {

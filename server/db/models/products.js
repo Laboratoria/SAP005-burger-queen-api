@@ -1,11 +1,12 @@
-/* eslint-disable eol-last */
 /* eslint-disable no-unused-vars */
 /* eslint-disable strict */
 // eslint-disable-next-line strict
 // eslint-disable-next-line lines-around-directive
 'use strict';
-const { Model } = require('sequelize');
-
+const {
+  Model,
+// eslint-disable-next-line import/newline-after-import
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Products extends Model {
     /**
@@ -14,22 +15,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Products.hasMany(models.ProductOrders, {
-        foreignKey: 'product_id',
-      });
+      // define association here
     }
-  }
+  // eslint-disable-next-line no-extra-semi
+  };
   Products.init({
     name: DataTypes.STRING,
-    price: DataTypes.DOUBLE,
     flavor: DataTypes.STRING,
     complement: DataTypes.STRING,
+    price: DataTypes.INTEGER,
     image: DataTypes.STRING,
     type: DataTypes.STRING,
-    sub_type: DataTypes.STRING,
+    subtype: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Products',
   });
   return Products;
+// eslint-disable-next-line eol-last
 };

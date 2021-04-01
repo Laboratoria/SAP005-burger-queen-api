@@ -1,6 +1,5 @@
 /* eslint-disable eol-last */
-// eslint-disable-next-line semi
-const { Router } = require('express')
+const { Router } = require('express');
 const ProductsController = require('../controller/ProductsController');
 
 const router = Router();

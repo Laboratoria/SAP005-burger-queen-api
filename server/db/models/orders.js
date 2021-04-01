@@ -1,3 +1,8 @@
+/* eslint-disable lines-around-directive */
+/* eslint-disable strict */
+'use strict';
+
+/* eslint-disable semi */
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -24,4 +29,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Orders;
 // eslint-disable-next-line eol-last
-};
+}

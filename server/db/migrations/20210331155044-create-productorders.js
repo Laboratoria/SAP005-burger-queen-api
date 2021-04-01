@@ -1,34 +1,30 @@
 /* eslint-disable eol-last */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Orders', {
+    await queryInterface.createTable('ProductOrders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      order_id: {
         allowNull: false,
-        references: { model: 'Users', key: 'id' },
+        references: { model: 'Orders', key: 'id' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         type: Sequelize.INTEGER,
       },
-      client_name: {
+      product_id: {
         allowNull: false,
-        type: Sequelize.STRING,
-      },
-      table: {
-        allowNull: false,
+        references: { model: 'Products', key: 'id' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         type: Sequelize.INTEGER,
       },
-      status: {
+      qtd: {
         allowNull: false,
-        defaultValue: 'pendente',
-        type: Sequelize.STRING,
-      },
-      processedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +37,6 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Orders');
+    await queryInterface.dropTable('ProductOrders');
   },
 };

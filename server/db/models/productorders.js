@@ -1,4 +1,7 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable strict */
+// eslint-disable-next-line lines-around-directive
+'use strict';
+
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -15,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   ProductOrders.init({
     order_id: DataTypes.INTEGER,
     product_id: DataTypes.INTEGER,
-    qtd: DataTypes.INTEGER,
+    qtd: DataTypes.DECIMAL,
   }, {
     sequelize,
     modelName: 'ProductOrders',

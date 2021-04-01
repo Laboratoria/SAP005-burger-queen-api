@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable lines-around-directive */
 // eslint-disable-next-line strict
 'use strict';
@@ -13,49 +12,46 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       flavor: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       complement: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       price: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       image: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       type: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       subtype: {
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.DATE
-      // eslint-disable-next-line comma-dangle
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
+  // eslint-disable-next-line no-unused-vars
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Products');
-  // eslint-disable-next-line comma-dangle
-  }
+  },
 // eslint-disable-next-line eol-last
 };
