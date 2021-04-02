@@ -11,7 +11,7 @@ const getProductsAll = async (req, res) => {
         }));
 };
   
-const getProductsId = (req, res) => {
+const getProductsId = async (req, res) => {
     await modelsDb.Products.findAll({ 
         where: { 
             id: req.params.id 
@@ -25,7 +25,7 @@ const getProductsId = (req, res) => {
         }));
 };
   
-const postProducts = (req, res) => {
+const postProducts = async (req, res) => {
     const {
       name, products, price, flavor, complement, image, type, sub_type,
     } = req.body;
@@ -48,7 +48,7 @@ const postProducts = (req, res) => {
         }));
 };
   
-const putProducts = (req, res) => {
+const putProducts = async (req, res) => {
     const {
       name, price, flavor, complement, image, type, sub_type,
     } = req.body;
@@ -76,7 +76,7 @@ const putProducts = (req, res) => {
       });
 };
   
-const deleteProducts = (req, res) => {
+const deleteProducts = async (req, res) => {
     await modelsDb.Products.destroy({ where: { id: req.params.id } })
       .then(() => {
         res.status(200).json({
