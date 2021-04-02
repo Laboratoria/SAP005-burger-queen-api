@@ -22,10 +22,10 @@ const ProductsController = {
   async postProducts(req, res) {
     try {
       const {
-        name, price, flavor, complement, image, subType, type,
+        name, price, flavor, complement, image, sub_type, type,
       } = req.body;
       const product = await db.Products.create({
-        name, price, flavor, complement, image, subType, type,
+        name, price, flavor, complement, image, sub_type, type,
       });
       res.status(200).send(product);
     } catch (error) {
@@ -35,12 +35,12 @@ const ProductsController = {
   async putProducts(req, res) {
     try {
       const {
-        name, price, flavor, complement, image, subType, type,
+        name, price, flavor, complement, image, sub_type, type,
       } = req.body;
       const id = req.params;
       await db.Products.update(
         {
-          name, price, flavor, complement, image, subType, type,
+          name, price, flavor, complement, image, sub_type, type,
         },
         {
           where: id,
