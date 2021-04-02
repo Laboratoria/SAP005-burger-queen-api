@@ -2,14 +2,14 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class products extends Model {
+  class Products extends Model {
     static associate(models) {
-      products.hasMany(models.ProductOrders, {
+      Products.hasMany(models.ProductOrders, {
         foreignKey: 'product_id',
       });
     }
   }
-  products.init({
+  Products.init({
     name: DataTypes.STRING,
     price: DataTypes.DOUBLE,
     flavor: DataTypes.STRING,
@@ -21,5 +21,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Products',
   });
-  return products;
+  return Products;
 };

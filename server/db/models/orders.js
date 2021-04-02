@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             });
         }
     }
-    Order.init({
+    Orders.init({
         client_name: DataTypes.STRING,
         user_id: DataTypes.INTEGER,
         table: DataTypes.INTEGER,
