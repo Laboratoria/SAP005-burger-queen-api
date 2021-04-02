@@ -6,9 +6,9 @@ const Orders = require("./Orders");
 const router = Router()
 
 // aqui vai todas as rotas
-router.use("/users", Users);
-router.use("/products", Products);
-router.use("/orders", Orders);
+router.use("/Users", Users);
+router.use("/Products", Products);
+router.use("/Orders", Orders);
 
 
 module.exports = router
