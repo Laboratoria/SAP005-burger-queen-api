@@ -1,7 +1,4 @@
-/* eslint-disable lines-around-directive */
-// eslint-disable-next-line strict
-'use strict';
-
+/* eslint-disable eol-last */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Products', {
@@ -12,32 +9,29 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
+      },
+      price: {
+        allowNull: false,
+        type: Sequelize.DOUBLE,
       },
       flavor: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       complement: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      price: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
       },
       image: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
       },
       type: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
       },
-      subtype: {
+      sub_type: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -49,9 +43,7 @@ module.exports = {
       },
     });
   },
-  // eslint-disable-next-line no-unused-vars
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Products');
   },
-// eslint-disable-next-line eol-last
 };

@@ -1,5 +1,4 @@
 /* eslint-disable eol-last */
-'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Orders', {
@@ -24,11 +23,12 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        defaultValue: 'pendente',
+        defaultValue: 'pending',
         type: Sequelize.STRING,
       },
       processedAt: {
         allowNull: false,
+        defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
       createdAt: {

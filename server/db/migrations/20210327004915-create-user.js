@@ -1,7 +1,4 @@
-/* eslint-disable lines-around-directive */
-// eslint-disable-next-line strict
-'use strict';
-
+/* eslint-disable eol-last */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -9,44 +6,55 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        // eslint-disable-next-line comma-dangle
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+        type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.STRING,
-        unique: true,
         allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+          notEmpty: true,
+        },
+        type: Sequelize.STRING,
       },
       password: {
-        type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [6, 20],
+        },
+        type: Sequelize.STRING,
       },
       role: {
-        type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+        type: Sequelize.STRING,
       },
       restaurant: {
-        type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'Lab Burger',
+        defaultValue: 'Burger Queen',
+        type: Sequelize.STRING,
       },
       createdAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },
-  // eslint-disable-next-line no-unused-vars
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Users');
   },
-// eslint-disable-next-line eol-last
 };

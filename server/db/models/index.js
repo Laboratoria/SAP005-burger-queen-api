@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable global-require */
 /* eslint-disable arrow-parens */
 /* eslint-disable prefer-template */

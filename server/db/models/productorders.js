@@ -1,27 +1,28 @@
-/* eslint-disable strict */
-// eslint-disable-next-line lines-around-directive
-'use strict';
-
+/* eslint-disable eol-last */
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class ProductOrders extends Model {
+  class Products extends Model {
     static associate(models) {
-      ProductOrders.belongsTo(models.Orders, {
-        foreignKey: 'order_id',
-      }); // productOrders pertence a order_id => (ordersModel)
-      ProductOrders.belongsTo(models.Products, {
+      Products.belongsToMany(models.Orders, {
+        through: 'ProductsOrders',
+        as: 'orders',
         foreignKey: 'product_id',
-      }); // productOrders pertence a product_id => (productsModel)
+        otherKey: 'order_id',
+      });
     }
   }
-  ProductOrders.init({
-    order_id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
-    qtd: DataTypes.DECIMAL,
+  Products.init({
+    name: DataTypes.STRING,
+    price: DataTypes.DOUBLE,
+    flavor: DataTypes.STRING,
+    complement: DataTypes.STRING,
+    image: DataTypes.STRING,
+    type: DataTypes.STRING,
+    sub_type: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'ProductOrders',
+    modelName: 'Products',
   });
-  return ProductOrders;
+  return Products;
 };

@@ -1,75 +1,75 @@
-/* eslint-disable object-curly-spacing */
+/* eslint-disable comma-spacing */
+/* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
+/* eslint-disable semi */
 /* eslint-disable eol-last */
-/* eslint-disable no-console */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable camelcase */
-
 const db = require('../db/models');
 
-const getOrderAll = (req, res) => {
+const getAllOrders = (req, res) => {
+  // const { user_id } = req.params;
+
+  // const user = db.Users.findByPk(user_id, {
+  //   include: { association: 'users' },
+  // });
+
   db.Orders.findAll()
     .then((result) => {
+      // res.status(200).json(user.users);
       res.status(200).json(result);
     })
-    .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
-    }));
+    .catch((error) => {
+      res.status(400).json(error.message);
+    // eslint-disable-next-line semi
+    })
 };
 
-const orderCreate = (req, res) => {
+const orderPost = (req, res) => {
+  // const { user_id } = req.params;
   const {
-    user_id, client_name, table, status, processedAt,
+    user_id, client_name, table, status, 
   } = req.body;
+
+  // const user = db.Users.findByPk(user_id);
+
+  // if (!user) {
+  //   return res.status(400).json({ error: 'User not found' });
+  // }
 
   db.Orders.create({
     user_id,
     client_name,
     table,
     status,
-    processedAt,
   })
     .then((result) => {
-      req.body.products.map((product) => {
-        const itemProduct = db.Products.findByPk(product.id);
-        if (!itemProduct) {
-          return res.status(400).json({
-            message: 'erro ao buscar produto',
-          });
-        }
-
-        const itemOrders = {
-          order_id: result.id,
-          product_id: product.id,
-          qtd: product.qtd,
-        };
-
-        db.ProductOrders.create(itemOrders);
-
-        return res.status(200).json(result);
-      });
+      res.status(201).json(result);
     })
-    .catch(() => res.status(400).json({
-      message: 'erro ao criar pedido',
-    }));
+    .catch((error) => {
+      res.status(400).json(error.message);
+    // eslint-disable-next-line semi
+    })
 };
 
 const getOrderId = (req, res) => {
-  db.Orders.findAll({
-    where: { id: req.params.id },
-  })
-    .then((product) => {
-      res.status(200).json(product);
+  db.Orders.findAll({ where: { id: req.params.id } })
+    .then((products) => {
+      res.status(200).json(products);
     })
-    .catch(() => res.status(400).json({
+    .catch(() => res.json({
       message: 'erro ao processar requisição',
     }));
 };
 
-const updateOrderId = (req, res) => {
+const orderPut = (req, res) => {
   const {
-    status,
+    user_id, client_name, table, status,
   } = req.body;
   db.Orders.update({
+    user_id,
+    client_name,
+    table,
     status,
   }, { where: { id: req.params.id } })
 
@@ -78,24 +78,26 @@ const updateOrderId = (req, res) => {
         message: 'ordem atualizada',
       });
     })
-    .catch(() => res.status(400).json({
-      message: 'erro ao atualizar ordem',
-    }));
+    .catch(() => {
+      res.json({
+        message: 'erro ao atualizar ordem',
+      });
+    });
 };
 
-const deleteOrderId = (req, res) => {
+const orderDelete = (req, res) => {
   db.Orders.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
         message: 'ordem excluída',
       });
     })
-    .catch(() => res.status(400).json({
-      message: 'erro ao excluir ordem',
-    }));
+    .catch(() => {
+      res.json({
+        message: 'erro ao excluir ordem',
+      });
+    });
 };
 
-// eslint-disable-next-line comma-dangle
-// eslint-disable-next-line comma-spacing
-// eslint-disable-next-line object-curly-newline
-module.exports = { getOrderAll, getOrderId, orderCreate, updateOrderId, deleteOrderId, };
+module.exports = { getAllOrders, getOrderId , orderPost, orderPut, orderDelete
+}
