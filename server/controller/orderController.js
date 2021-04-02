@@ -1,8 +1,9 @@
-const models = require('../db/models')
+const models = require('../db/models');
+const products = require('../db/models/products');
 
 
-//Pegar todos ---------------------- ok
-const getAllOrders = async (req, res, next) => {
+//Pegar todos os orders ---------------------- ok
+const getAllOrders = async (req, res) => {
     try {
       const users = await models.Orders.findAll();
       res.status(200).json(users);
@@ -12,7 +13,7 @@ const getAllOrders = async (req, res, next) => {
 }
 
 
-//Pegar por ID -------------------ok
+//Pegar orders por ID -------------------ok
 const getOrderId = async (req, res)=> {
   try {
     const users = await models.Orders.findAll({
@@ -25,23 +26,39 @@ const getOrderId = async (req, res)=> {
     }
 }
 
-//Criar  ---------------------- ok
+//Criar Produto ---------------------- ok
 const postOrder = async (req, res, next) => {
+  const { user_id, client, table, products } = req.body;
+
+  products.map(async(item) => {
+    const product = await models.Products.findByPk(item.id);
+    console.log(product)
+    if (!product) {
+      return res.status(404).json({ "error": "produto não existe"})
+    }
+  });
+
   try {
-    const { user_id, client_name, table, status, processedAt } = req.body;
-    const user = await models.Orders.create({
-      user_id,
-      client_name,
-      table,
-      status,
-      processedAt,
+    const createdOrder = await models.Orders.create(req.body)
+    
+    req.body.products.map(async(item) => {
+      const product = await models.Products.findByPk(item.id);
+
+      const productOrder = {
+        order_id: createdOrder.id,
+        product_id: item.id,
+        qtd: item.qtd
+      }
+
+      await models.ProductOrders.create(productOrder);
     })
-    res.status(200).json(user);
+
+    return res.status(201).json(createdOrder);
   } catch(err){
     next(err);
   }
 }
-//atualizar
+//update orders
 const updateOrder = async (req, res, next) => {
   try {
     const {user_id, client_name, table, status } = req.body;
@@ -63,7 +80,7 @@ const updateOrder = async (req, res, next) => {
   }
 }
 
-//Deletar  ---------------------- ok
+//Deletar orders ---------------------- ok
 const deleteOrder = (req, res, next) => {
   try {
     const users = models.Orders.destroy({

@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Orders extends Model {
     /**
@@ -12,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Orders.belongsToMany(models.Products, {
         through: "ProductsOrders",
-        as: "Products",
+        as: "products",
         foreignKey: "order_id",
         otherKey: "product_id",
         onDelete: "CASCADE",
