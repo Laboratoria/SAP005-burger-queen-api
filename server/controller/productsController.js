@@ -1,28 +1,46 @@
-const getProducts = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Get Products");
-};
+const modelsDatabase = require("../db/models")
 
-const getIdProducts = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request GetId Products");
-};
+class ProductsController {
+	static async getProducts(req, res) {
+		const getProducts = await modelsDatabase.Products.findAll()
+		return res.status(200).json(getProducts)
+	}
 
-const postProducts = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Post Products");
-};
+	static async getIdProducts(req, res) {
+		const getIdProducts = await modelsDatabase.Products.findAll({
+			where: { id: Number(req.params) }
+		});
+		return res.status(200).json(getIdProducts)
+	}
 
-const putIdProducts = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Put Products");
-};
+	static async postProducts(req, res) {
+		const postProducts = await modelsDatabase.Products.create(req.body)
+		res.status(201).json(postProducts)
+	}
 
-const deleteIdProducts = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Delete Products");
-};
+	static async putProducts(req, res) {
+		const putProducts = await modelsDatabase.Products.update({
+			name: req.body.name,
+			price: req.body.price,
+			flavor: req.body.flavor,
+			complement: req.body.complement,
+			image: req.body.image,
+			sub_type: req.body.sub_type
+		}, {
+			where: {id: req.params.id}
+		})
+		res.status(200).json(putProducts)
+	}
 
-module.exports = {
-    getProducts, getIdProducts, putIdProducts, postProducts, deleteIdProducts,
-};
+	static async deleteProducts(req, res) {
+		const deleteProducts = await modelsDatabase.Products.destroy({
+			where: {id: Number(req.params)
+			}
+		});
+		return res.status(201).json(deleteProducts)
+	}
+
+}
+
+module.exports = ProductsController
+

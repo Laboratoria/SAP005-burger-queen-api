@@ -1,30 +1,45 @@
-const getOrders = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Get Orders");
-};
+const modelsDatabase = require("../db/models");
 
-const getIdOrders = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request GetId Orders");
-};
+class OrdersController {
+  static async getOrders(req, res) {
+    const getOrders = await modelsDatabase.Orders.findAll();
+    return res.status(200).json(getOrders);
+  }
 
-const postOrders = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Post Orders");
-};
+  static async getIdOrders(req, res) {
+    const getIdOrders = await modelsDatabase.Orders.findAll({
+      where: { id: Number(req.params) },
+    });
+    return res.status(200).json(getIdOrders);
+  }
 
-const putIdOrders = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Put Orders");
-};
+  static async postOrders(req, res) {
+    const createOrders = req.body;
+    const postOrders = await modelsDatabase.Orders.create(createOrders);
+    return res.status(201).json(postOrders);
+  }
 
-const deleteIdOrders = (req, res) => {
-    console.log("você também pode utilizar o console para visualizar =)");
-    res.send("Request Delete Orders");
-};
+  static async putIdOrders(req, res) {
+    const putIdOrders = await modelsDatabase.Orders.update(
+      {
+        client_name,
+        table,
+        products,
+      },
+      {
+        where: { id: Number(id) },
+      }
+    );
+    return res.status(200).json(putIdOrders);
+  }
 
-module.exports = {
-    getOrders, getIdOrders, putIdOrders, postOrders, deleteIdOrders,
-};
+  static async deleteOrders(req, res) {
+    const deleteOrders = await modelsDatabase.Orders.destroy({
+      where: { id: Number(req.params) 
+      },
+    });
+    return res.status(200).json(deleteOrders);
+  }
+}
 
-
+module.exports = OrdersController
