@@ -27,10 +27,11 @@ const getProductsId = (req, res) => {
   
 const postProducts = (req, res) => {
     const {
-      name, price, flavor, complement, image, type, sub_type,
+      name, products, price, flavor, complement, image, type, sub_type,
     } = req.body;
     await modelsDb.Products.create({
       name,
+      products,
       price,
       flavor,
       complement,
@@ -49,7 +50,7 @@ const postProducts = (req, res) => {
   
 const putProducts = (req, res) => {
     const {
-      name, price, flavor, type, sub_type,
+      name, price, flavor, complement, image, type, sub_type,
     } = req.body;
     await modelsDb.Products.update(
       {
