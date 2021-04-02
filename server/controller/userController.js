@@ -20,10 +20,17 @@ const getUserId = async (req, res, next) => {
       next(err);
     }
 }
-//tratar e-mails repetidos
+
 const postUser = async (req, res, next) => {
+  const { name, email, password, role, restaurant } = req.body;
+
+  if( name == null || email == null || password == null || role == null || restaurant == null){
+    return res.status(400).json({ status: "review object" })
+  }
+  if( name == '' || email == '' || password == '' || role == '' || restaurant == ''){
+    return res.status(400).json({ status: "Fill empty fields." })
+  }
   try {
-    const { name, email, password, role, restaurant } = req.body;
     const user = await models.User.create({
       name,
       email,
@@ -33,7 +40,7 @@ const postUser = async (req, res, next) => {
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    res.status(200).json(user);
+    res.status(201).json(user);
   } catch(err){
     next(err);
   }

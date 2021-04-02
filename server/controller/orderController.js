@@ -1,73 +1,125 @@
 const models = require('../db/models');
-const products = require('../db/models/products');
 
-
-//Pegar todos os orders ---------------------- ok
 const getAllOrders = async (req, res) => {
-    try {
-      const users = await models.Orders.findAll();
-      res.status(200).json(users);
+  try {
+    let resultOrders = await models.Orders.findAll({
+      order: [['id', 'ASC']],
+      include: [{
+        model: models.Products,
+        as: 'products',
+        attributes: [
+          'id', 'name', 'price', 'flavor', 'complement', 'image', 'type', 'sub_type'
+        ],
+        through: {
+          model: models.ProductOrders,
+          as: 'qtd',
+          attributes: ['qtd']
+        }
+      }]
+    });
+    resultOrders = JSON.parse(JSON.stringify(resultOrders));
+
+    const allOrders = resultOrders.map((order) => {
+      const productsOrder = order.products.map((item) => ({
+        ...item,
+        qtd: item.qtd.qtd
+      }))
+      return {
+        ...order,
+        products: productsOrder
+      }
+    });
+    return res.status(200).json(allOrders)
     } catch (err){
       next(err)
     } 
 }
 
-
-//Pegar orders por ID -------------------ok
 const getOrderId = async (req, res)=> {
+
+  const { id } = req.params
+  const checkOrder = await models.Orders.findByPk(id);
+  if(!checkOrder){
+    return res.status(404).json({ status: `order doesn't exist ${id}`})
+  }
   try {
-    const users = await models.Orders.findAll({
-      where: 
-      {id:req.params.id}
+    let findId = await models.Orders.findOne({
+      where: {id: req.params.id },
+      include: [{
+        model: models.Products,
+        as: 'products',
+        attributes: [
+          'id', 'name', 'price', 'flavor', 'complement', 'image', 'type', 'sub_type'
+        ],
+        through: {
+          model: models.ProductOrders,
+          as: 'qtd',
+          attributes: ['qtd']
+        }
+      }]
     })
-    res.status(200).json(users);
+    
+    findId = findId.toJSON()
+    
+    const productsOrder = findId.products.map((item) => ({
+      ...item,
+      qtd: item.qtd.qtd,
+    }))
+    const returnById = {
+      ...findId,
+      products: productsOrder,
+    }
+    return res.status(200).json(returnById)
     } catch (err){
       next(err);
     }
 }
 
-//Criar Produto ---------------------- ok
 const postOrder = async (req, res, next) => {
-  const { user_id, client, table, products } = req.body;
+  const { user_id, client_name, table, products } = req.body;
 
-  products.map(async(item) => {
+  if( user_id == null || client_name == null || table == null|| products == null){
+    return res.status(400).json({ status: "Verify object" })
+  }
+  if( user_id == '' || client_name == '' || table == '' || products == ''){
+    return res.status(400).json({ status: "Fill empty fields." })
+  }
+  
+  products.map(async (item) => {
     const product = await models.Products.findByPk(item.id);
     console.log(product)
     if (!product) {
-      return res.status(404).json({ "error": "produto não existe"})
+      return res.status(404).json({ "error": "product doesn't exist"})
     }
   });
 
   try {
-    const createdOrder = await models.Orders.create(req.body)
-    
+    const orderCreated = await models.Orders.create(req.body)
     req.body.products.map(async(item) => {
-      const product = await models.Products.findByPk(item.id);
-
       const productOrder = {
-        order_id: createdOrder.id,
+        order_id: orderCreated.id,
         product_id: item.id,
         qtd: item.qtd
       }
-
       await models.ProductOrders.create(productOrder);
     })
-
-    return res.status(201).json(createdOrder);
+    return res.status(201).json(orderCreated);
   } catch(err){
-    next(err);
+    next(res.status(400).json({ error : err.message }));
+    
   }
 }
-//update orders
+
 const updateOrder = async (req, res, next) => {
   try {
-    const {user_id, client_name, table, status } = req.body;
+    const {user_id, client_name, table, status, products } = req.body;
     const users = await models.Orders.update(
       { 
         user_id,
         client_name,
         table,
-        status
+        status,
+        products
       },
       {
         where:
@@ -80,14 +132,17 @@ const updateOrder = async (req, res, next) => {
   }
 }
 
-//Deletar orders ---------------------- ok
-const deleteOrder = (req, res, next) => {
+const deleteOrder = async (req, res, next) => {
   try {
-    const users = models.Orders.destroy({
+    const productsOrders = await models.ProductOrders.destroy({
       where: 
       {id:req.params.id}
     });
-    return res.json(users);
+    const order = await models.Orders.destroy({
+      where: 
+      {id:req.params.id}
+    })
+    return res.status(200).json({ status: "Order deleted successfly!"})
   } catch(err) {
     next(err);
   }

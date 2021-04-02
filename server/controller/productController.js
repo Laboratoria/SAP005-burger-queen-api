@@ -1,7 +1,5 @@
 const models = require('../db/models')
 
-
-//Pegar todos os usuários ---------------------- ok
 const getAllProducts = async (req, res, next) => {
   try {
     const users = await models.Products.findAll();
@@ -11,7 +9,6 @@ const getAllProducts = async (req, res, next) => {
   } 
 }
 
-//Pegar produto por ID -------------------ok
 const getProductId = async (req, res, next)=> {
   try {
     const users = await models.Products.findAll({
@@ -20,14 +17,20 @@ const getProductId = async (req, res, next)=> {
     })
     res.status(200).json(users);
     } catch (err){
-      next(err);
+      next(err)
     }
 }
 
-//Criar Produto ---------------------- ok
 const postProduct = async (req, res, next) => {
+  const { name, price, flavor, complement, image, type, sub_type } = req.body;
+  if( name == null || price == null || type == null || sub_type == null){
+    return res.status(400).json({ status: "review object" })
+  }
+  if( name == '' || price == '' || type == '' || sub_type == ''){
+    return res.status(400).json({ status: "Fill empty fields." })
+  }
+  
   try {
-    const { name, price, flavor, complement, image, type, sub_type } = req.body;
     const user = await models.Products.create({
       name,
       price,
@@ -39,12 +42,12 @@ const postProduct = async (req, res, next) => {
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    res.status(200).json(user);
+    res.status(201).json(user);
   } catch(err){
     next(err);
   }
 }
-//editar Produto
+
 const updateProduct = async (req, res, next) => {
   try {
     const {id, name, price, flavor, complement, image, type, sub_type } = req.body;
@@ -70,7 +73,6 @@ const updateProduct = async (req, res, next) => {
   }
 }
 
-//Deletar Produto ---------------------- ok
 const deleteProducts = async (req, res, next) => {
   try {
     const users = await models.Products.destroy({
