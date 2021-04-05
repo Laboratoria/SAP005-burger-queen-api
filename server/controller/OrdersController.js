@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 /* eslint-disable comma-spacing */
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
@@ -99,5 +100,4 @@ const orderDelete = (req, res) => {
     });
 };
 
-module.exports = { getAllOrders, getOrderId , orderPost, orderPut, orderDelete
-}
+module.exports = { getAllOrders, getOrderId , orderPost, orderPut, orderDelete}

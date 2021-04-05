@@ -33,4 +33,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Products;
 // eslint-disable-next-line eol-last
-};
+};//
